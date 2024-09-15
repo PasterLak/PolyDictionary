@@ -1,6 +1,6 @@
 import SwiftUI
 
-// Представление для выбора языка
+
 struct LanguageSelectionView: View {
     @Binding var selectedLanguages: [Language]
     @Environment(\.dismiss) var dismiss
@@ -37,9 +37,9 @@ struct LanguageSelectionView: View {
 
     var filteredLanguages: [Language] {
         if searchText.isEmpty {
-            return allLanguages.filter { !selectedLanguages.contains($0) }
+            return Language.allLanguages.filter { !selectedLanguages.contains($0) }
         } else {
-            return allLanguages.filter { $0.name.localizedCaseInsensitiveContains(searchText) && !selectedLanguages.contains($0) }
+            return Language.allLanguages.filter { $0.name.localizedCaseInsensitiveContains(searchText) && !selectedLanguages.contains($0) }
         }
     }
 }

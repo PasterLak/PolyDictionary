@@ -6,12 +6,12 @@ struct MainView: View {
     @State private var dictionaries: [DictionaryItem] = [
         DictionaryItem(
             name: "My Dictionary",
-            languages: [allLanguages[1], allLanguages[0], allLanguages[2]],
+            languages: [Language.getLanguageByCode(code: "RU"), Language.getLanguageByCode(code: "DE"),Language.getLanguageByCode(code: "EN")],
             wordCount: 258
         ),
         DictionaryItem(
             name: "Learning Spanish",
-            languages: [allLanguages[0], allLanguages[3]],
+            languages: [Language.getLanguageByCode(code: "DE"),Language.getLanguageByCode(code: "ES")],
             wordCount: 63
         )
     ]
@@ -22,8 +22,7 @@ struct MainView: View {
     @State private var showEditDictionarySheet = false
 
     var body: some View {
-        
-       
+
         NavigationView {
            
             List {

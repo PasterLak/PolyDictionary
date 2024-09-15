@@ -11,7 +11,7 @@ import SwiftUI
 // import YourModuleName
 
 struct SettingsView: View {
-    @EnvironmentObject var settings: Settings
+    @StateObject var settings = Settings()
 
     var body: some View {
         
@@ -69,9 +69,3 @@ struct SettingsView: View {
    
 }
 
-struct SettingsView_Previews: PreviewProvider {
-    static var previews: some View {
-        SettingsView()
-            .environmentObject(Settings())
-    }
-}
