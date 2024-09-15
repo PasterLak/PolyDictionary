@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct MainView: View {
+struct DictionariesView: View {
     @StateObject var settings = Settings()
     
     @State private var dictionaries: [DictionaryItem] = [
@@ -94,6 +94,6 @@ struct MainView: View {
 
 struct MainView_Previews: PreviewProvider {
     static var previews: some View {
-        MainView()
+        DictionariesView()
     }
 }

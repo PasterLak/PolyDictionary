@@ -14,7 +14,7 @@
 		511E56CA2C960DF80072666F /* PolyDictionaryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511E56C92C960DF80072666F /* PolyDictionaryTests.swift */; };
 		511E56D42C960DF80072666F /* PolyDictionaryUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511E56D32C960DF80072666F /* PolyDictionaryUITests.swift */; };
 		511E56D62C960DF80072666F /* PolyDictionaryUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511E56D52C960DF80072666F /* PolyDictionaryUITestsLaunchTests.swift */; };
-		511E56E32C960E340072666F /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511E56E22C960E340072666F /* MainView.swift */; };
+		511E56E32C960E340072666F /* DictionariesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511E56E22C960E340072666F /* DictionariesView.swift */; };
 		511E56E52C960EEC0072666F /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511E56E42C960EEC0072666F /* SettingsView.swift */; };
 		511E56E72C9611350072666F /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511E56E62C9611350072666F /* Settings.swift */; };
 		511E56E92C9615F90072666F /* WordsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511E56E82C9615F90072666F /* WordsView.swift */; };
@@ -59,7 +59,7 @@
 		511E56CF2C960DF80072666F /* PolyDictionaryUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PolyDictionaryUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		511E56D32C960DF80072666F /* PolyDictionaryUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolyDictionaryUITests.swift; sourceTree = "<group>"; };
 		511E56D52C960DF80072666F /* PolyDictionaryUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolyDictionaryUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		511E56E22C960E340072666F /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		511E56E22C960E340072666F /* DictionariesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DictionariesView.swift; sourceTree = "<group>"; };
 		511E56E42C960EEC0072666F /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		511E56E62C9611350072666F /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		511E56E82C9615F90072666F /* WordsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordsView.swift; sourceTree = "<group>"; };
@@ -127,7 +127,7 @@
 				518EAE0B2C964C1700AAE7A2 /* UI */,
 				518EAE0A2C964BF100AAE7A2 /* Logic */,
 				511E56B82C960DF60072666F /* PolyDictionaryApp.swift */,
-				511E56E22C960E340072666F /* MainView.swift */,
+				511E56E22C960E340072666F /* DictionariesView.swift */,
 				511E56BA2C960DF60072666F /* ContentView.swift */,
 				511E56E42C960EEC0072666F /* SettingsView.swift */,
 				511E56BC2C960DF80072666F /* Assets.xcassets */,
@@ -331,7 +331,7 @@
 				518EAE0F2C964C5C00AAE7A2 /* DictionaryItem.swift in Sources */,
 				51B846522C9770C500782F42 /* Words.swift in Sources */,
 				518EAE112C964CA500AAE7A2 /* DictionaryRow.swift in Sources */,
-				511E56E32C960E340072666F /* MainView.swift in Sources */,
+				511E56E32C960E340072666F /* DictionariesView.swift in Sources */,
 				518EAE152C964CD100AAE7A2 /* AddDictionaryView.swift in Sources */,
 				511E56E72C9611350072666F /* Settings.swift in Sources */,
 				511E56B92C960DF60072666F /* PolyDictionaryApp.swift in Sources */,

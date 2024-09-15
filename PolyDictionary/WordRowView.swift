@@ -27,7 +27,7 @@ struct WordRowView: View {
                     .font(.subheadline)
                     .foregroundColor(.gray)
                 
-                Text("#tag #imp")
+                Text("#tag #food")
                     .font(.caption).foregroundColor(.yellow)
                 
             }

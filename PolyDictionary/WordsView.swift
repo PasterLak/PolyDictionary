@@ -9,15 +9,15 @@ struct WordsView: View {
     private let batchSize = 20
     @State private var currentStartIndex = 0
     @State private var currentEndIndex = 0
-
-
+    
+    
     @State private var showingLearning = false
     
     func Close()
     {
         
     }
-
+    
     var body: some View {
         ScrollView {
             LazyVStack {
@@ -40,19 +40,7 @@ struct WordsView: View {
         }
         .navigationBarTitle(dictionary.name, displayMode: .inline)
         .toolbar {
-            // Кнопка "Home" в нижней панели
-            /*ToolbarItem(placement: .bottomBar) {
-                Button(action: {
-                    // Возвращаемся к списку словарей
-                    if let window = UIApplication.shared.windows.first {
-                        window.rootViewController?.dismiss(animated: true, completion: nil)
-                    }
-                }) {
-                    Text("Home")
-                }
-            }*/
-            
-            // Кнопка с иконкой глобуса в верхнем правом углу
+ 
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button(action: {
                     showingLearning = true
@@ -62,17 +50,17 @@ struct WordsView: View {
                 }
             }
         }
-        // Модальное представление "LearningView"
+       
         .sheet(isPresented: $showingLearning) {
             LearningView()
         }
     }
-
+    
     enum ScrollDirection {
         case up
         case down
     }
-
+    
     private func loadMoreWords(direction: ScrollDirection) {
         switch direction {
         case .down:
@@ -90,18 +78,21 @@ struct WordsView: View {
             currentStartIndex -= numberOfWordsToAdd
         }
     }
-
+    
     private func generateWordItem() -> WordItem {
         let word = generateRandomWord()
-        let description = "🇬🇧: \(word)" + " 🇫🇷: \(word)"
+        let description =
+        "🇩🇪: \(Words.wordsDictionary[word]?.german ?? "error") " +
+        "🇷🇺: \(Words.wordsDictionary[word]?.russian ?? "error")"
         let percentage = Int.random(in: 0...100)
         return WordItem(word: word, description: description, percentage: percentage)
     }
-
+    
     private func generateRandomWord() -> String {
         let letters = "abcdefghijklmnopqrstuvwxyz"
         let length = Int.random(in: 3...10)
-        return String((0..<length).compactMap { _ in letters.randomElement() })
+        return Words.getRandomWord().english
+        //return String((0..<length).compactMap { _ in letters.randomElement() })
     }
 }
 

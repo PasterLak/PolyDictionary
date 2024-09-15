@@ -7,6 +7,7 @@ public struct WordItem: Identifiable {
     public let description: String
     public let percentage: Int
     
+    
     public init(word: String, description: String, percentage: Int) {
         self.word = word
         self.description = description

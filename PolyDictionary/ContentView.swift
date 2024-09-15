@@ -8,7 +8,7 @@ struct ContentView: View {
    
         TabView {
             NavigationView {
-                MainView()
+                DictionariesView()
             }
             .tabItem {
                 Image(systemName: "character.book.closed")
