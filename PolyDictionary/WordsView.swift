@@ -5,6 +5,7 @@ struct WordsView: View {
     var dictionary: DictionaryItem
     @State private var words: [WordItem] = []
     
+    @State private var isPresented: Bool = false
     @State private var showingLearning = false
     
     var body: some View {
@@ -35,6 +36,7 @@ struct WordsView: View {
         .sheet(isPresented: $showingLearning) {
             LearningView()
         }
+        
     }
 }
 

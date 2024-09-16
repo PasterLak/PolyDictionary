@@ -52,7 +52,7 @@ struct SettingsView: View {
                 EmptyView()
             }
             
-            VStack {
+           /* VStack {
                         Text("Dictionaries")
 
                         Picker("Select Language", selection: $languageManager.selectedLanguage) {
@@ -65,7 +65,7 @@ struct SettingsView: View {
                     }
                     .onChange(of: languageManager.selectedLanguage) { newValue in
                         languageManager.setLanguage(newValue)
-                    }
+                    }*/
         }
         .listStyle(InsetGroupedListStyle())
         .navigationBarTitle("Settings", displayMode: .inline)

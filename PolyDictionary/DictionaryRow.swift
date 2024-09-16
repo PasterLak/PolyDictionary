@@ -2,7 +2,7 @@ import SwiftUI
 
 struct DictionaryRow: View {
     var dictionary: DictionaryItem
-
+    
     var body: some View {
         ZStack(alignment: .leading) {
             RoundedRectangle(cornerRadius: 8)
@@ -29,7 +29,7 @@ struct DictionaryRow: View {
             }
             .padding()
         }
-        .frame(height: 80)
+        .frame(height: 90)
     }
 }
 

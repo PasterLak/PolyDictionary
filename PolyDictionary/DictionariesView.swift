@@ -2,6 +2,7 @@ import SwiftUI
 
 struct DictionariesView: View {
     @StateObject var settings = Settings()
+    @State private var isPresented: Bool = false
     
     @State private var dictionaries: [DictionaryItem] = [
         DictionaryItem(
@@ -29,13 +30,13 @@ struct DictionariesView: View {
     var body: some View {
         
         
-        List {
+        List{
             ForEach(dictionaries) { dictionary in
                 NavigationLink(destination: WordsView(dictionary: dictionary)) {
                     DictionaryRow(dictionary: dictionary)
                 }
                 .buttonStyle(PlainButtonStyle())
-                .listRowInsets(EdgeInsets())
+                //.listRowInsets(EdgeInsets())
                 .swipeActions(edge: .trailing) {
                     Button(role: .destructive) {
                         dictionaryToDelete = dictionary
@@ -55,19 +56,19 @@ struct DictionariesView: View {
                 }
             }
             
-            Button(action: {
+           /* Button(action: {
                 showAddDictionarySheet = true
             }) {
-                AddDictionaryRow()
+                //AddDictionaryRow()
             }
             .buttonStyle(PlainButtonStyle())
-            .listRowInsets(EdgeInsets())
+            .listRowInsets(EdgeInsets())*/
         }
-        .listStyle(PlainListStyle())
-        .navigationBarTitle("Dictionaries", displayMode: .inline)
+        .listStyle(InsetGroupedListStyle())
+        .navigationBarTitle("Dictionaries", displayMode: .large)
         .sheet(isPresented: $showAddDictionarySheet) {
-            AddDictionaryView(dictionaries: $dictionaries)
-                .environmentObject(settings)
+            //AddDictionaryView(dictionaries: $dictionaries)
+            //    .environmentObject(settings)
         }
         .sheet(item: $selectedDictionaryForEditing) { dictionary in
             EditDictionaryView(dictionary: dictionary, dictionaries: $dictionaries)
@@ -82,6 +83,20 @@ struct DictionariesView: View {
             Button("Cancel", role: .cancel) { }
         } message: { dict in
             Text("Are you sure you want to delete '\(dict.name)'?")
+        }
+        .sheet(isPresented: $isPresented, content: {
+            AddDictionaryView(dictionaries: $dictionaries)
+                .environmentObject(settings)
+        })
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                Button {
+                    isPresented = true
+                } label: {
+                    //Text("Add")
+                    Image(systemName: "plus")
+                }
+            }
         }
         
     }
