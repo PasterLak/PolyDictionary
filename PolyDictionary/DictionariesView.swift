@@ -6,17 +6,17 @@ struct DictionariesView: View {
     @State private var dictionaries: [DictionaryItem] = [
         DictionaryItem(
             name: "My Dictionary",
-            languages: [Language.getLanguageByCode(code: "RU"), Language.getLanguageByCode(code: "DE"),Language.getLanguageByCode(code: "EN")],
+            languages: ["EN", "DE", "RU"],
             wordCount: 358
         ),
         DictionaryItem(
             name: "Learning Spanish",
-            languages: [Language.getLanguageByCode(code: "DE"),Language.getLanguageByCode(code: "ES")],
+            languages: ["EN", "ES"],
             wordCount: 63
         ),
         DictionaryItem(
             name: "Japanese basic words",
-            languages: [Language.getLanguageByCode(code: "EN"),Language.getLanguageByCode(code: "JA")],
+            languages: ["EN", "JA"],
             wordCount: 57
         )
     ]
@@ -88,7 +88,7 @@ struct DictionariesView: View {
     
 }
 
-struct MainView_Previews: PreviewProvider {
+struct DictionariesView_Previews: PreviewProvider {
     static var previews: some View {
         DictionariesView()
     }

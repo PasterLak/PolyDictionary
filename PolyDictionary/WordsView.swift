@@ -43,7 +43,7 @@ struct WordsView_Previews: PreviewProvider {
         NavigationView {
             WordsView(dictionary: DictionaryItem(
                 name: "Sample Dictionary",
-                languages: [Language.getLanguageByCode(code: "RU"), Language.getLanguageByCode(code: "DE")],
+                languages: ["RU","DE"],
                 wordCount: 100
             ))
         }

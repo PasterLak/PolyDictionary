@@ -32,6 +32,7 @@
 		51B846762C987D5B00782F42 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 51B846752C987D5B00782F42 /* Localizable.xcstrings */; };
 		51B846782C987E4F00782F42 /* LanguageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51B846772C987E4F00782F42 /* LanguageManager.swift */; };
 		51B8467A2C987FB100782F42 /* TestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51B846792C987FB100782F42 /* TestView.swift */; };
+		51B8467D2C98945D00782F42 /* Databank.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 51B8467B2C98945D00782F42 /* Databank.xcdatamodeld */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -80,6 +81,7 @@
 		51B846752C987D5B00782F42 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		51B846772C987E4F00782F42 /* LanguageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageManager.swift; sourceTree = "<group>"; };
 		51B846792C987FB100782F42 /* TestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestView.swift; sourceTree = "<group>"; };
+		51B8467C2C98945D00782F42 /* Databank.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Databank.xcdatamodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -193,6 +195,7 @@
 			isa = PBXGroup;
 			children = (
 				51B846752C987D5B00782F42 /* Localizable.xcstrings */,
+				51B8467B2C98945D00782F42 /* Databank.xcdatamodeld */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -340,6 +343,7 @@
 				518EAE0D2C964C3400AAE7A2 /* Language.swift in Sources */,
 				51B846542C97735000782F42 /* LearningView.swift in Sources */,
 				518EAE0F2C964C5C00AAE7A2 /* DictionaryItem.swift in Sources */,
+				51B8467D2C98945D00782F42 /* Databank.xcdatamodeld in Sources */,
 				51B846522C9770C500782F42 /* Words.swift in Sources */,
 				518EAE112C964CA500AAE7A2 /* DictionaryRow.swift in Sources */,
 				511E56E32C960E340072666F /* DictionariesView.swift in Sources */,
@@ -677,6 +681,20 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		51B8467B2C98945D00782F42 /* Databank.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				51B8467C2C98945D00782F42 /* Databank.xcdatamodel */,
+			);
+			currentVersion = 51B8467C2C98945D00782F42 /* Databank.xcdatamodel */;
+			name = Databank.xcdatamodeld;
+			path = /Users/vladis/Documents/Projects/Apple/PolyDictionary/PolyDictionary/UI/Databank.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 511E56AD2C960DF60072666F /* Project object */;
 }

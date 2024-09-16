@@ -42,7 +42,7 @@ struct AddDictionaryView: View {
                 trailing: Button("Add") {
                     let newDictionary = DictionaryItem(
                         name: name,
-                        languages: selectedLanguages,
+                        languages: ["RU"],
                         wordCount: 0
                     )
                     dictionaries.append(newDictionary)

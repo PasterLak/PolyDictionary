@@ -1,7 +1,5 @@
 import SwiftUI
 
-
-
 struct DictionaryRow: View {
     var dictionary: DictionaryItem
 
@@ -15,7 +13,9 @@ struct DictionaryRow: View {
                 Spacer()
                 
                 HStack {
-                    ForEach(dictionary.languages) { language in
+                    // Map language codes to Language objects and display
+                    ForEach(dictionary.languages, id: \.self) { code in
+                        let language = Language.getLanguageByCode(code: code)
                         HStack(spacing: 2) {
                             Text(language.flag)
                             Text(language.code)
@@ -32,4 +32,5 @@ struct DictionaryRow: View {
         .frame(height: 80)
     }
 }
+
 
