@@ -4,11 +4,11 @@ import SwiftUI
 struct EditDictionaryView: View {
     @Environment(\.dismiss) var dismiss
     @EnvironmentObject var settings: Settings
-    var dictionary: DictionaryItem
-    @Binding var dictionaries: [DictionaryItem]
+    var dictionary: DictionaryModel
+    @Binding var dictionaries: [DictionaryModel]
     @State private var name: String
 
-    init(dictionary: DictionaryItem, dictionaries: Binding<[DictionaryItem]>) {
+    init(dictionary: DictionaryModel, dictionaries: Binding<[DictionaryModel]>) {
         self.dictionary = dictionary
         self._dictionaries = dictionaries
         self._name = State(initialValue: dictionary.name)

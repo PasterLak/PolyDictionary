@@ -4,7 +4,7 @@ struct AddDictionaryView: View {
     
     @Environment(\.dismiss) var dismiss
     @EnvironmentObject var settings: Settings
-    @Binding var dictionaries: [DictionaryItem]
+    @Binding var dictionaries: [DictionaryModel]
     @State private var name: String = ""
     @State private var selectedLanguages: [Language] = []
     @State private var showLanguageSelection = false
@@ -40,7 +40,7 @@ struct AddDictionaryView: View {
             .navigationBarItems(
                 leading: Button("Cancel") { dismiss() },
                 trailing: Button("Add") {
-                    let newDictionary = DictionaryItem(
+                    let newDictionary = DictionaryModel(
                         name: name,
                         languages: ["RU"],
                         wordCount: 0

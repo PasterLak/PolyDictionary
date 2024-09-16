@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct DictionaryRow: View {
-    var dictionary: DictionaryItem
+    var dictionary: DictionaryModel
     
     var body: some View {
         ZStack(alignment: .leading) {

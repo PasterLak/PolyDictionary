@@ -23,7 +23,7 @@ struct ContentView: View {
             }
         }
         .preferredColorScheme(settings.isDarkMode ? .dark : .light)
-
+        .modelContainer(for: [DictionaryModel.self])
     }
 }
 
@@ -32,6 +32,7 @@ struct ContentView_Previews: PreviewProvider {
         ContentView()
             .environmentObject(Settings())
             .environmentObject(LanguageManager())
+            .modelContainer(for: [DictionaryModel.self])
     }
 }
 

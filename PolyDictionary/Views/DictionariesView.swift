@@ -1,30 +1,31 @@
 import SwiftUI
+import SwiftData
 
 struct DictionariesView: View {
     @StateObject var settings = Settings()
     @State private var isPresented: Bool = false
     
-    @State private var dictionaries: [DictionaryItem] = [
-        DictionaryItem(
+    @State private var dictionaries: [DictionaryModel] = [
+        DictionaryModel(
             name: "My Dictionary",
             languages: ["EN", "DE", "RU"],
             wordCount: 358
         ),
-        DictionaryItem(
+        DictionaryModel(
             name: "Learning Spanish",
             languages: ["EN", "ES"],
             wordCount: 63
         ),
-        DictionaryItem(
+        DictionaryModel(
             name: "Japanese basic words",
             languages: ["EN", "JA"],
             wordCount: 57
         )
     ]
     @State private var showAddDictionarySheet = false
-    @State private var dictionaryToDelete: DictionaryItem?
+    @State private var dictionaryToDelete: DictionaryModel?
     @State private var showDeleteConfirmation = false
-    @State private var selectedDictionaryForEditing: DictionaryItem?
+    @State private var selectedDictionaryForEditing: DictionaryModel?
     @State private var showEditDictionarySheet = false
     
     var body: some View {

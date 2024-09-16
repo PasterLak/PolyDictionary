@@ -2,7 +2,7 @@ import SwiftUI
 
 struct WordsView: View {
     
-    var dictionary: DictionaryItem
+    var dictionary: DictionaryModel
     @State private var words: [WordItem] = []
     
     @State private var isPresented: Bool = false
@@ -43,7 +43,7 @@ struct WordsView: View {
 struct WordsView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            WordsView(dictionary: DictionaryItem(
+            WordsView(dictionary: DictionaryModel(
                 name: "Sample Dictionary",
                 languages: ["RU","DE"],
                 wordCount: 100
