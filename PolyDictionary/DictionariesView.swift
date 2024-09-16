@@ -7,12 +7,17 @@ struct DictionariesView: View {
         DictionaryItem(
             name: "My Dictionary",
             languages: [Language.getLanguageByCode(code: "RU"), Language.getLanguageByCode(code: "DE"),Language.getLanguageByCode(code: "EN")],
-            wordCount: 258
+            wordCount: 358
         ),
         DictionaryItem(
             name: "Learning Spanish",
             languages: [Language.getLanguageByCode(code: "DE"),Language.getLanguageByCode(code: "ES")],
             wordCount: 63
+        ),
+        DictionaryItem(
+            name: "Japanese basic words",
+            languages: [Language.getLanguageByCode(code: "EN"),Language.getLanguageByCode(code: "JA")],
+            wordCount: 57
         )
     ]
     @State private var showAddDictionarySheet = false

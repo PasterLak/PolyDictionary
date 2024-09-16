@@ -3,7 +3,7 @@ import SwiftUI
 struct ContentView: View {
     
     @EnvironmentObject var settings: Settings
-    
+
     var body: some View {
         TabView {
             NavigationView {
@@ -23,13 +23,15 @@ struct ContentView: View {
             }
         }
         .preferredColorScheme(settings.isDarkMode ? .dark : .light)
+
     }
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
-            .environmentObject(Settings())  // Передаем объект в ContentView для предпросмотра
+            .environmentObject(Settings())
+            .environmentObject(LanguageManager())
     }
 }
 

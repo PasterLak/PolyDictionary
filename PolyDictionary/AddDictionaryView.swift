@@ -1,13 +1,14 @@
 import SwiftUI
 
 struct AddDictionaryView: View {
+    
     @Environment(\.dismiss) var dismiss
     @EnvironmentObject var settings: Settings
     @Binding var dictionaries: [DictionaryItem]
     @State private var name: String = ""
     @State private var selectedLanguages: [Language] = []
     @State private var showLanguageSelection = false
-
+    
     var body: some View {
         NavigationView {
             List {
@@ -21,7 +22,7 @@ struct AddDictionaryView: View {
                     }
                     .onDelete(perform: deleteLanguage)
                     .onMove(perform: moveLanguage)
-
+                    
                     if selectedLanguages.count < 5 {
                         Button(action: {
                             showLanguageSelection = true
@@ -47,21 +48,21 @@ struct AddDictionaryView: View {
                     dictionaries.append(newDictionary)
                     dismiss()
                 }
-                .disabled(name.isEmpty || selectedLanguages.count < 2)
+                    .disabled(name.isEmpty || selectedLanguages.count < 2)
             )
             .environment(\.editMode, .constant(.active))
             .sheet(isPresented: $showLanguageSelection) {
                 LanguagePickerView(selectedLanguages: $selectedLanguages)
                     .environmentObject(settings)
             }
-            .preferredColorScheme(settings.isDarkMode ? .dark : .light) 
+            .preferredColorScheme(settings.isDarkMode ? .dark : .light)
         }
     }
-
+    
     func deleteLanguage(at offsets: IndexSet) {
         selectedLanguages.remove(atOffsets: offsets)
     }
-
+    
     func moveLanguage(from source: IndexSet, to destination: Int) {
         selectedLanguages.move(fromOffsets: source, toOffset: destination)
     }

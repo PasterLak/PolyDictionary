@@ -3,6 +3,7 @@ import SwiftUI
 struct SettingsView: View {
     
     @EnvironmentObject var settings: Settings
+    @EnvironmentObject var languageManager: LanguageManager
     
     var body: some View {
         
@@ -50,9 +51,26 @@ struct SettingsView: View {
             .frame(maxWidth: .infinity)) {
                 EmptyView()
             }
+            
+            VStack {
+                        Text("Dictionaries")
+
+                        Picker("Select Language", selection: $languageManager.selectedLanguage) {
+                            Text("English").tag("en")
+                            Text("Russian").tag("ru")
+                            
+                        }
+                        .pickerStyle(SegmentedPickerStyle())
+                        .padding()
+                    }
+                    .onChange(of: languageManager.selectedLanguage) { newValue in
+                        languageManager.setLanguage(newValue)
+                    }
         }
         .listStyle(InsetGroupedListStyle())
         .navigationBarTitle("Settings", displayMode: .inline)
+        
+        
     }
 }
 
@@ -60,5 +78,6 @@ struct SettingsView_Previews: PreviewProvider {
     static var previews: some View {
         SettingsView()
             .environmentObject(Settings())
+            .environmentObject(LanguageManager())
     }
 }
