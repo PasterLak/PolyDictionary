@@ -14,7 +14,11 @@
         }
       }
     },
+    "%d words" : {
+
+    },
     "%lld words" : {
+      "extractionState" : "stale",
       "localizations" : {
         "ru" : {
           "stringUnit" : {
