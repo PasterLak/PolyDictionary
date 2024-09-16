@@ -2,26 +2,11 @@ import SwiftUI
 import SwiftData
 
 struct DictionariesView: View {
-    @StateObject var settings = Settings()
-    @State private var isPresented: Bool = false
+    @Environment(\.modelContext) private var modelContext
+    @StateObject private var viewModel = DictionaryViewModel()
     
-    @State private var dictionaries: [DictionaryModel] = [
-        DictionaryModel(
-            name: "My Dictionary",
-            languages: ["EN", "DE", "RU"],
-            wordCount: 358
-        ),
-        DictionaryModel(
-            name: "Learning Spanish",
-            languages: ["EN", "ES"],
-            wordCount: 63
-        ),
-        DictionaryModel(
-            name: "Japanese basic words",
-            languages: ["EN", "JA"],
-            wordCount: 57
-        )
-    ]
+    @Query private var dictionaries: [DictionaryModel]
+    
     @State private var showAddDictionarySheet = false
     @State private var dictionaryToDelete: DictionaryModel?
     @State private var showDeleteConfirmation = false
@@ -29,15 +14,12 @@ struct DictionariesView: View {
     @State private var showEditDictionarySheet = false
     
     var body: some View {
-        
-        
-        List{
+        List {
             ForEach(dictionaries) { dictionary in
                 NavigationLink(destination: WordsView(dictionary: dictionary)) {
                     DictionaryRow(dictionary: dictionary)
                 }
                 .buttonStyle(PlainButtonStyle())
-                //.listRowInsets(EdgeInsets())
                 .swipeActions(edge: .trailing) {
                     Button(role: .destructive) {
                         dictionaryToDelete = dictionary
@@ -56,56 +38,55 @@ struct DictionariesView: View {
                     .tint(.blue)
                 }
             }
-            
-           /* Button(action: {
-                showAddDictionarySheet = true
-            }) {
-                //AddDictionaryRow()
-            }
-            .buttonStyle(PlainButtonStyle())
-            .listRowInsets(EdgeInsets())*/
         }
         .listStyle(InsetGroupedListStyle())
         .navigationBarTitle("Dictionaries", displayMode: .large)
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) { // Добавляем кнопку в правом верхнем углу
+                Button(action: {
+                    showAddDictionarySheet = true
+                }) {
+                    Image(systemName: "plus") // Отображаем значок "+"
+                }
+            }
+        }
         .sheet(isPresented: $showAddDictionarySheet) {
-            //AddDictionaryView(dictionaries: $dictionaries)
-            //    .environmentObject(settings)
+            AddDictionaryView() // Открываем представление для добавления словаря
         }
         .sheet(item: $selectedDictionaryForEditing) { dictionary in
-            EditDictionaryView(dictionary: dictionary, dictionaries: $dictionaries)
-                .environmentObject(settings)
+            EditDictionaryView(dictionary: dictionary)
         }
         .alert("Delete Dictionary", isPresented: $showDeleteConfirmation, presenting: dictionaryToDelete) { dict in
             Button("Delete", role: .destructive) {
-                if let index = dictionaries.firstIndex(of: dict) {
-                    dictionaries.remove(at: index)
+                if let dictionary = dictionaryToDelete {
+                    viewModel.deleteDictionary(dictionary: dictionary, context: modelContext)
                 }
             }
             Button("Cancel", role: .cancel) { }
-        } message: { dict in
-            Text("Are you sure you want to delete '\(dict.name)'?")
         }
-        .sheet(isPresented: $isPresented, content: {
-            AddDictionaryView(dictionaries: $dictionaries)
-                .environmentObject(settings)
-        })
-        .toolbar {
-            ToolbarItem(placement: .topBarTrailing) {
-                Button {
-                    isPresented = true
-                } label: {
-                    //Text("Add")
-                    Image(systemName: "plus")
-                }
+        .onAppear {
+           
+            if dictionaries.isEmpty {
+                addDefaultDictionaries()
             }
         }
         
+        
     }
     
-}
-
-struct DictionariesView_Previews: PreviewProvider {
-    static var previews: some View {
-        DictionariesView()
+    
+    private func addDefaultDictionaries() {
+        let defaultDictionaries = [
+            DictionaryModel(name: "Learning russian", languages: ["EN", "RU"], wordCount: Int16(Int.random( in: 10...500))),
+            DictionaryModel(name: "German-English Dictionary", languages: ["DE", "EN"], wordCount: Int16(Int.random( in: 10...500))),
+            DictionaryModel(name: "Spanish-English Dictionary", languages: ["ES", "EN"], wordCount: Int16(Int.random( in: 10...500)))
+        ]
+        
+        for dictionary in defaultDictionaries {
+            modelContext.insert(dictionary)
+        }
+        
+        try? modelContext.save() // Сохраняем изменения в базу данных
     }
+    
 }

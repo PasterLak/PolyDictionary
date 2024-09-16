@@ -25,6 +25,7 @@ struct PolyDictionaryApp: App {
                 .environmentObject(languageManager)
                 .modelContainer(for: [DictionaryModel.self])
                 .modelContainer(modelContainer)
+          
         }
     }
 }

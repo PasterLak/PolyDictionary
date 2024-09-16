@@ -5,7 +5,7 @@ import SwiftData
 @Model
 final class DictionaryModel: Identifiable, Equatable {
     
-    @Attribute(.unique) var id: String = UUID().uuidString
+    @Attribute(.unique) let id: String = UUID().uuidString
     var name: String
     var languages: [String] // EN
     var wordCount: Int16

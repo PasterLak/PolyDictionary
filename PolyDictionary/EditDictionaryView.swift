@@ -1,17 +1,15 @@
 import SwiftUI
-
+import SwiftData
 
 struct EditDictionaryView: View {
     @Environment(\.dismiss) var dismiss
-    @EnvironmentObject var settings: Settings
+    @Environment(\.modelContext) private var modelContext // Для сохранения изменений
     var dictionary: DictionaryModel
-    @Binding var dictionaries: [DictionaryModel]
     @State private var name: String
 
-    init(dictionary: DictionaryModel, dictionaries: Binding<[DictionaryModel]>) {
+    init(dictionary: DictionaryModel) {
         self.dictionary = dictionary
-        self._dictionaries = dictionaries
-        self._name = State(initialValue: dictionary.name)
+        self._name = State(initialValue: dictionary.name) // Инициализация имени словаря
     }
 
     var body: some View {
@@ -26,15 +24,18 @@ struct EditDictionaryView: View {
             .navigationBarItems(
                 leading: Button("Cancel") { dismiss() },
                 trailing: Button("Save") {
-                    if let index = dictionaries.firstIndex(of: dictionary) {
-                        dictionaries[index].name = name
-                    }
+                    saveChanges()
                     dismiss()
                 }
-                .disabled(name.isEmpty)
+                .disabled(name.isEmpty) // Деактивируем кнопку, если имя пустое
             )
-            .preferredColorScheme(settings.isDarkMode ? .dark : .light) // Исправлено для поддержки светлой темы
         }
+    }
+    
+    // Метод для сохранения изменений
+    private func saveChanges() {
+        dictionary.name = name
+        try? modelContext.save() // Сохраняем изменения в базу данных
     }
 }
 
