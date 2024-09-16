@@ -1,35 +1,28 @@
 import SwiftUI
 
-
 struct WordRowView: View {
     
     let wordItem: WordItem
     
-    @StateObject var settings = Settings()
+    @EnvironmentObject var settings: Settings
     
     var body: some View {
         HStack {
-            
-            /*Image(systemName: randomIcon())
-             .resizable()
-             .frame(width: 55, height: 40)
-             .padding(.trailing, 8)*/
-            
-            // Текст в центре
             VStack(alignment: .leading) {
                 
-                Text(wordItem.word)
+                Text(wordItem.word["English"] ?? "Error")
                     .font(.headline)
                 
-                
-                
-                Text(wordItem.description)
+
+                Text(wordItem.getTranslationsWithFlags())
                     .font(.subheadline)
                     .foregroundColor(.gray)
                 
-                Text("#tag #food")
-                    .font(.caption).foregroundColor(.yellow)
-                
+               
+                Text(wordItem.getTagsAsString())
+                    .font(.caption)
+                    .foregroundColor(.yellow)
+               
             }
             Spacer()
             
@@ -37,24 +30,39 @@ struct WordRowView: View {
                 Circle()
                     .stroke(colorForPercentage(wordItem.percentage), lineWidth: 2)
                     .frame(width: 50, height: 50)
-                if wordItem.percentage < 100
-                {
+                if wordItem.percentage < 100 {
                     Text("\(wordItem.percentage)%")
                         .font(.headline)
-                }
-                else
-                {
+                } else {
                     Image(systemName: "checkmark.circle.fill")
-                    
                         .resizable()
                         .frame(width: 40, height: 40)
                         .foregroundColor(.purple)
-                    //.padding(.trailing, 8)
-                    
                 }
             }
         }
         .padding(.vertical, 8)
+        .onTapGesture {
+            // Обрабатываем нажатие на строку
+            print("Word tapped: \(wordItem.word)")
+        }
+        .swipeActions(edge: .leading) {
+            Button(action: {
+                // Действие редактирования
+                print("Edit \(wordItem.word)")
+            }) {
+                Label("Edit", systemImage: "pencil")
+            }
+            .tint(.blue) // Цвет кнопки редактирования
+        }
+        .swipeActions(edge: .trailing) {
+            Button(role: .destructive) {
+                // Действие удаления
+                print("Delete \(wordItem.word)")
+            } label: {
+                Label("Delete", systemImage: "trash")
+            }
+        }
         .preferredColorScheme(settings.isDarkMode ? .dark : .light)
     }
     
@@ -74,15 +82,12 @@ struct WordRowView: View {
             return Color.purple
         }
     }
-    
-    func randomIcon() -> String {
-        let icons = ["globe", "envelope.fill", "mail", "creditcard"]
-        return icons.randomElement() ?? "questionmark"
-    }
 }
-
-
 
 #Preview {
-    WordRowView(wordItem: Words.WordsDictionary[0])
+    WordRowView(
+        wordItem: WordItem(word: ["English": "Apple", "German": "Apfel", "Russian": "Яблоко"], percentage: Int.random(in: 1...100), tags: ["#tag"])
+    )
+        .environmentObject(Settings())
 }
+

@@ -1,9 +1,9 @@
 import SwiftUI
 
-// Представление для редактирования словаря
+
 struct EditDictionaryView: View {
     @Environment(\.dismiss) var dismiss
-    @StateObject var settings = Settings()
+    @EnvironmentObject var settings: Settings
     var dictionary: DictionaryItem
     @Binding var dictionaries: [DictionaryItem]
     @State private var name: String

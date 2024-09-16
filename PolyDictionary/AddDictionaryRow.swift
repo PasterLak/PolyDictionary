@@ -1,6 +1,5 @@
 import SwiftUI
 
-// Представление для строки "Добавить новый словарь"
 struct AddDictionaryRow: View {
     var body: some View {
         ZStack(alignment: .leading) {

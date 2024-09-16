@@ -1,9 +1,8 @@
 import SwiftUI
 
-// Представление для добавления нового словаря
 struct AddDictionaryView: View {
     @Environment(\.dismiss) var dismiss
-    @StateObject var settings = Settings()
+    @EnvironmentObject var settings: Settings
     @Binding var dictionaries: [DictionaryItem]
     @State private var name: String = ""
     @State private var selectedLanguages: [Language] = []
@@ -52,7 +51,7 @@ struct AddDictionaryView: View {
             )
             .environment(\.editMode, .constant(.active))
             .sheet(isPresented: $showLanguageSelection) {
-                LanguageSelectionView(selectedLanguages: $selectedLanguages)
+                LanguagePickerView(selectedLanguages: $selectedLanguages)
                     .environmentObject(settings)
             }
             .preferredColorScheme(settings.isDarkMode ? .dark : .light) 

@@ -1,6 +1,6 @@
 import SwiftUI
 
-class Settings: ObservableObject {
+public class Settings: ObservableObject {
     @Published var isDarkMode: Bool {
         didSet {
             UserDefaults.standard.set(isDarkMode, forKey: "isDarkMode")
@@ -21,7 +21,7 @@ class Settings: ObservableObject {
         self.useFaceId = UserDefaults.standard.object(forKey: "useFaceId") as? Bool ?? false
     }
    
-    func resetSettings() {
+   public func resetSettings() {
         isDarkMode = false
         useFaceId = false
     }

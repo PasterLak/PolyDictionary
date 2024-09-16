@@ -7,7 +7,8 @@ struct PolyDictionaryApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
-                .preferredColorScheme(settings.isDarkMode ? .dark : .light) 
+                .environmentObject(settings)
+                
         }
     }
 }

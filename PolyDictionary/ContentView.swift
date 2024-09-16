@@ -2,10 +2,9 @@ import SwiftUI
 
 struct ContentView: View {
     
-    @StateObject var settings = Settings()
+    @EnvironmentObject var settings: Settings
     
     var body: some View {
-   
         TabView {
             NavigationView {
                 DictionariesView()
@@ -22,18 +21,15 @@ struct ContentView: View {
                 Image(systemName: "gear")
                 Text("Settings")
             }
-            
         }
-        .environmentObject(settings)
         .preferredColorScheme(settings.isDarkMode ? .dark : .light)
-        
     }
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
-        
+            .environmentObject(Settings())  // Передаем объект в ContentView для предпросмотра
     }
 }
 

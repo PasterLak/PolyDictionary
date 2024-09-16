@@ -30,5 +30,9 @@ public struct Language: Identifiable, Equatable {
     public static func getLanguageByCode(code: String) -> Language {
         return allLanguages.first { $0.code == code } ?? defaultLanguage()
     }
+    
+    public static func getLanguageByName(name: String) -> Language {
+        return allLanguages.first { $0.name == name } ?? defaultLanguage()
+    }
 }
 
