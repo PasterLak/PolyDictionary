@@ -15,7 +15,7 @@ struct DictionariesView: View {
     
     var body: some View {
         List {
-            ForEach(dictionaries) { dictionary in
+            ForEach(dictionaries.sorted(by: { $0.wordCount > $1.wordCount })) { dictionary in
                 NavigationLink(destination: WordsView(dictionary: dictionary)) {
                     DictionaryRow(dictionary: dictionary)
                 }

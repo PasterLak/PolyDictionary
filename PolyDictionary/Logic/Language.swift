@@ -19,7 +19,18 @@ public struct Language: Identifiable, Equatable {
             Language(name: "Portuguese", flag: "🇵🇹", code: "PT"),
             Language(name: "Russian", flag: "🇷🇺", code: "RU"),
             Language(name: "Spanish", flag: "🇪🇸", code: "ES"),
-            Language(name: "Ukrainian", flag: "🇺🇦", code: "UK")
+            Language(name: "Ukrainian", flag: "🇺🇦", code: "UK"),
+            // Новые языки
+            Language(name: "Italian", flag: "🇮🇹", code: "IT"),
+            Language(name: "Korean", flag: "🇰🇷", code: "KO"),
+            Language(name: "Turkish", flag: "🇹🇷", code: "TR"),
+            Language(name: "Dutch", flag: "🇳🇱", code: "NL"),
+            Language(name: "Greek", flag: "🇬🇷", code: "EL"),
+            Language(name: "Swedish", flag: "🇸🇪", code: "SV"),
+            Language(name: "Norwegian", flag: "🇳🇴", code: "NO"),
+            Language(name: "Polish", flag: "🇵🇱", code: "PL"),
+            Language(name: "Danish", flag: "🇩🇰", code: "DA"),
+            Language(name: "Finnish", flag: "🇫🇮", code: "FI")
         ]
     }()
     

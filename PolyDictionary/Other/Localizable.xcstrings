@@ -15,7 +15,14 @@
       }
     },
     "%d words" : {
-
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%d слов"
+          }
+        }
+      }
     },
     "%lld words" : {
       "extractionState" : "stale",
