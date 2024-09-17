@@ -48,7 +48,7 @@ struct OnboardingView: View {
                 }
             }
             .tabViewStyle(PageTabViewStyle(indexDisplayMode: .always))
-            .animation(.easeInOut) // Плавная анимация смены страниц
+            .animation(.easeInOut)
             .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .always))
             
             // Кнопка "Далее"
@@ -59,7 +59,7 @@ struct OnboardingView: View {
                     }
                 } else {
                     withAnimation(.easeInOut(duration: 1)) {
-                        showOnboarding = false // Плавно скрываем OnboardingView
+                        showOnboarding = false
                     }
                 }
             }) {
@@ -70,7 +70,7 @@ struct OnboardingView: View {
                     .background(LinearGradient(gradient: Gradient(colors: [Color.blue, Color.purple]), startPoint: .leading, endPoint: .trailing))
                     .foregroundColor(.white)
                     .cornerRadius(10)
-                    .shadow(radius: 5) // Добавляем тень для кнопки
+                    .shadow(radius: 5)
                     .padding(.horizontal)
             }
             .padding(.bottom, 50)
@@ -95,9 +95,9 @@ struct OnboardingPageView: View {
                 .fontWeight(.bold)
                 .multilineTextAlignment(.center)
                 .padding(.horizontal)
-                .opacity(animateText ? 1 : 0.5) // Анимация появления текста
-                .offset(y: animateText ? 0 : 5) // Плавное появление сдвигается вверх
-                .animation(.easeInOut(duration: 0.5)) // Плавная анимация заголовка
+                .opacity(animateText ? 1 : 0.5)
+                .offset(y: animateText ? 0 : 5)
+                .animation(.easeInOut(duration: 0.5))
             
             Spacer()
             
@@ -107,17 +107,16 @@ struct OnboardingPageView: View {
                 .frame(width: 350, height: 350)
                 .clipShape(Circle())
                 .shadow(radius: 10)
-                .scaleEffect(animateImage ? 1 : 0.8) // Плавное увеличение изображения
-                .animation(.easeOut(duration: 0.8)) // Анимация появления изображения
+                .scaleEffect(animateImage ? 1 : 0.8)
+                .animation(.easeOut(duration: 0.8))
             
             Text(page.description)
                 .font(.body)
                 .multilineTextAlignment(.center)
                 .padding(.horizontal, 20)
-                .opacity(animateText ? 1 : 0.8) // Плавная анимация появления текста
-                .offset(y: animateText ? 0 : 10) // Текст начинается снизу и поднимается вверх
-                .animation(.easeInOut(duration: 0.6).delay(0.2)) // Плавная анимация с задержкой
-            
+                .opacity(animateText ? 1 : 0.8)
+                .offset(y: animateText ? 0 : 10)
+                .animation(.easeInOut(duration: 0.6).delay(0.2))
             
             Spacer()
         }

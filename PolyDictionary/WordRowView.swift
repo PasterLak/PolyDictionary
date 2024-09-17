@@ -43,17 +43,17 @@ struct WordRowView: View {
         }
         .padding(.vertical, 8)
         .onTapGesture {
-            // Обрабатываем нажатие на строку
+            
             print("Word tapped: \(wordItem.word)")
         }
         .swipeActions(edge: .leading) {
             Button(action: {
-                // Действие редактирования
+               
                 print("Edit \(wordItem.word)")
             }) {
                 Label("Edit", systemImage: "pencil")
             }
-            .tint(.blue) // Цвет кнопки редактирования
+            .tint(.blue)
         }
         .swipeActions(edge: .trailing) {
             Button(role: .destructive) {

@@ -5,7 +5,14 @@
 
     },
     "#tag" : {
-
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "#тег"
+          }
+        }
+      }
     },
     "%@ %@" : {
       "localizations" : {
@@ -45,7 +52,14 @@
 
     },
     "86" : {
-
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "86"
+          }
+        }
+      }
     },
     "Add" : {
       "localizations" : {
@@ -88,10 +102,24 @@
       }
     },
     "Add New Tag" : {
-
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Добавить новый тег"
+          }
+        }
+      }
     },
     "Add New Word" : {
-
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Добавить новое слово"
+          }
+        }
+      }
     },
     "App Version 0.1\n" : {
       "localizations" : {
@@ -115,7 +143,14 @@
       }
     },
     "Available Tags" : {
-
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Доступные теги"
+          }
+        }
+      }
     },
     "Basic:" : {
       "localizations" : {
@@ -132,19 +167,33 @@
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Закрыть"
+            "value" : "Отменить"
           }
         }
       }
     },
     "Close" : {
-
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Закрыть"
+          }
+        }
+      }
     },
     "Copyright(c) 2024 Vladislav" : {
 
     },
     "Correct answers:" : {
-
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Правильные ответы:"
+          }
+        }
+      }
     },
     "Dark Mode" : {
       "localizations" : {
@@ -198,7 +247,14 @@
       }
     },
     "Done" : {
-
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Готово"
+          }
+        }
+      }
     },
     "Edit" : {
       "localizations" : {
@@ -231,7 +287,14 @@
       }
     },
     "General" : {
-
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Общее"
+          }
+        }
+      }
     },
     "Get Started" : {
       "localizations" : {
@@ -257,7 +320,6 @@
       }
     },
     "Languages" : {
-      "extractionState" : "stale",
       "localizations" : {
         "ru" : {
           "stringUnit" : {
@@ -268,10 +330,24 @@
       }
     },
     "Learned Words" : {
-
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Выученые слова"
+          }
+        }
+      }
     },
     "Learned words:" : {
-
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Выученые слова:"
+          }
+        }
+      }
     },
     "Learning" : {
       "localizations" : {
@@ -517,10 +593,24 @@
       }
     },
     "Select Tags" : {
-
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Выбрать теги"
+          }
+        }
+      }
     },
     "Selected Tags:" : {
-
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Выбранные теги:"
+          }
+        }
+      }
     },
     "Settings" : {
       "extractionState" : "manual",
@@ -533,14 +623,45 @@
         }
       }
     },
+    "Settings for Learning Words" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Настройки для изучения слов"
+          }
+        }
+      }
+    },
     "Statistics" : {
-
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Статистика"
+          }
+        }
+      }
     },
     "Tag Color:" : {
-
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Цвет тега:"
+          }
+        }
+      }
     },
     "Tags" : {
-
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Теги"
+          }
+        }
+      }
     },
     "Theme" : {
       "localizations" : {
@@ -563,10 +684,24 @@
       }
     },
     "Total Words" : {
-
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Всего слов"
+          }
+        }
+      }
     },
     "Total words:" : {
-
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Всего слов:"
+          }
+        }
+      }
     },
     "Translations" : {
 

@@ -29,7 +29,7 @@ struct AddDictionaryView: View {
                         .textFieldStyle(RoundedBorderTextFieldStyle())
                 }
                 
-                Section() {
+                Section(header: Text("Languages")) {
                     ForEach(selectedLanguages) { language in
                         Text("\(language.flag) \(language.name)")
                     }

@@ -67,7 +67,6 @@ struct TagSelectorView: View {
                     }
                 }
                 
-                // Доступные теги
                 Section(header: Text("Available Tags")) {
                     ForEach(availableTags) { tag in
                         HStack {

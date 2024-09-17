@@ -13,14 +13,11 @@ class LanguageManager: ObservableObject {
     }
 
     func setLanguage(_ languageCode: String) {
-        // Сохранение выбранного языка в UserDefaults
         UserDefaults.standard.set([languageCode], forKey: "AppleLanguages")
         UserDefaults.standard.synchronize()
-        
-        // Вызываем обновление интерфейса через изменение id
+
         objectWillChange.send()
         
-        // Сообщение о необходимости перезагрузки
         print("Language changed to \(languageCode). A restart might be required.")
     }
 }

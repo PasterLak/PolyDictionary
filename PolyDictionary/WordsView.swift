@@ -42,7 +42,7 @@ struct WordsView: View {
                 HStack {
                     Spacer()
                     Button(action: {
-                        // Действие для добавления нового слова
+                        
                         isPresented = true
                     }) {
                         Image(systemName: "plus")
@@ -55,7 +55,7 @@ struct WordsView: View {
                     }
                     .padding()
                     .sheet(isPresented: $isPresented) {
-                        // Передаём текущий словарь в AddWordView
+                        
                         AddWordView(dictionary: dictionary)
                     }
                 }
