@@ -225,6 +225,16 @@
         }
       }
     },
+    "Description" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Описание"
+          }
+        }
+      }
+    },
     "Dictionaries" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -562,6 +572,9 @@
         }
       }
     },
+    "Search" : {
+
+    },
     "Search Languages" : {
       "localizations" : {
         "ru" : {
@@ -704,7 +717,14 @@
       }
     },
     "Translations" : {
-
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Переводы"
+          }
+        }
+      }
     },
     "Use Face ID" : {
       "localizations" : {

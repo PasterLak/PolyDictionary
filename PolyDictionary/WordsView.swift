@@ -5,12 +5,32 @@ struct WordsView: View {
     var dictionary: DictionaryModel
     @State private var words: [WordModel] = []
     
+    
     @State private var isPresented: Bool = false
     @State private var showingLearning = false
     
+    @EnvironmentObject var settings: Settings
+    
+    @State private var test = ""
+    
     var body: some View {
+        VStack{
+            HStack {
+                Image(systemName: "magnifyingglass")
+                    .padding(.leading)
+                TextField("Search", text: $test)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .padding(.horizontal)
+                    
+                     //.cornerRadius(10)
+                 // Color(UIColor.secondarySystemBackground)
+            }
+            
+            .padding(.horizontal)
         ZStack {
+            
             ScrollView {
+                
                 LazyVStack {
                     ForEach(Words.WordsDictionary) { wordItem in
                         WordRowView(wordItem: wordItem)
@@ -32,11 +52,12 @@ struct WordsView: View {
                     }
                 }
             }
+            .background(settings.isDarkMode ? Color(UIColor.systemBackground) : Color(UIColor.secondarySystemBackground))
             .sheet(isPresented: $showingLearning) {
                 LearningView()
             }
             
-            // Добавляем кнопку с иконкой "плюс" в нижнем правом углу
+           
             VStack {
                 Spacer()
                 HStack {
@@ -49,9 +70,11 @@ struct WordsView: View {
                             .foregroundColor(.white)
                             .font(.system(size: 30))
                             .padding()
-                            .background(Color.purple)
+                            .background(Color.blue)
                             .clipShape(Circle())
                             .shadow(radius: 20)
+                            .opacity(0.85)
+                        
                     }
                     .padding()
                     .sheet(isPresented: $isPresented) {
@@ -61,8 +84,10 @@ struct WordsView: View {
                 }
             }
         }
+        }.background(settings.isDarkMode ? Color(UIColor.systemBackground) : Color(UIColor.secondarySystemBackground))
     }
 }
+
 
 struct WordsView_Previews: PreviewProvider {
     static var previews: some View {
@@ -72,9 +97,10 @@ struct WordsView_Previews: PreviewProvider {
                 languages: ["RU", "DE"],
                 wordCount: 100
             ))
-            .modelContainer(for: [DictionaryModel.self])
             .environmentObject(Settings())
+            .modelContainer(for: DictionaryModel.self) 
         }
     }
 }
+
 

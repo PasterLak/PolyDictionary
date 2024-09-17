@@ -4,15 +4,15 @@ struct AddWordView: View {
     
     var dictionary: DictionaryModel
     
-    @State private var wordTranslations: [String: String] = [:] // Словарь для хранения введённых переводов
+    @State private var wordTranslations: [String: String] = [:]
     @State private var selectedTags: [String] = []
     @State private var isTagSelectorPresented = false
-    @Environment(\.dismiss) var dismiss // Для закрытия View
+    @Environment(\.dismiss) var dismiss 
     
     var body: some View {
         NavigationView {
             Form {
-                // Динамические поля для ввода значений на разных языках
+                
                 Section(header: Text("Translations")) {
                     ForEach(dictionary.languages, id: \.self) { language in
                         TextField("Word in \(language)", text: Binding(

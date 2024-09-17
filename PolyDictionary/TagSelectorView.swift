@@ -71,7 +71,8 @@ struct TagSelectorView: View {
                     ForEach(availableTags) { tag in
                         HStack {
                             Text("#" + tag.name.lowercased())
-                                .foregroundColor(tag.color)
+                            
+                                .foregroundColor(getColor(tag.color))
                                 //.bold()
                             Spacer()
                            // Circle()
@@ -101,6 +102,26 @@ struct TagSelectorView: View {
                 }
             )
         }
+        
+        
+    }
+    
+    func getColor(_ color: Color) -> Color
+    {
+        if color == .yellow
+        {
+            if settings.isDarkMode
+            {
+                return .yellow
+            }
+            else
+            {
+                return Color(red: 0.95, green: 0.6, blue: 0.1)
+            }
+            
+        }
+        
+        return color
     }
 }
 
@@ -110,6 +131,7 @@ struct TagSelectorView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
             TagSelectorView(selectedTags: $selectedTags)
+                .environmentObject(Settings())
         }
     }
 }

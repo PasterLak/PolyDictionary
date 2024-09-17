@@ -12,6 +12,7 @@ struct WordRowView: View {
                 
                 Text(wordItem.word["English"] ?? "Error")
                     .font(.headline)
+                    
                 
 
                 Text(wordItem.getTranslationsWithFlags())
@@ -21,14 +22,15 @@ struct WordRowView: View {
                
                 Text(wordItem.getTagsAsString())
                     .font(.caption)
-                    .foregroundColor(.yellow)
+               // rgb(236, 173, 21)
+                    .foregroundColor(settings.isDarkMode ? .yellow : Color(red: 0.95, green: 0.6, blue: 0.1))
                
             }
             Spacer()
             
             ZStack {
                 Circle()
-                    .stroke(colorForPercentage(wordItem.percentage), lineWidth: 2)
+                    .stroke(colorForPercentage(wordItem.percentage), lineWidth: wordItem.percentage < 100 ? 2 : 0)
                     .frame(width: 50, height: 50)
                 if wordItem.percentage < 100 {
                     Text("\(wordItem.percentage)%")
@@ -37,7 +39,7 @@ struct WordRowView: View {
                     Image(systemName: "checkmark.circle.fill")
                         .resizable()
                         .frame(width: 40, height: 40)
-                        .foregroundColor(.purple)
+                        .foregroundColor(.green)
                 }
             }
         }
@@ -57,7 +59,7 @@ struct WordRowView: View {
         }
         .swipeActions(edge: .trailing) {
             Button(role: .destructive) {
-                // Действие удаления
+                
                 print("Delete \(wordItem.word)")
             } label: {
                 Label("Delete", systemImage: "trash")
@@ -77,7 +79,7 @@ struct WordRowView: View {
         case 60...80:
             return Color.green
         case 80...95:
-            return Color.blue
+           return Color.blue
         default:
             return Color.purple
         }

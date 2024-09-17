@@ -73,7 +73,7 @@ struct StatsView: View {
                         
                     }
                     
-                    .frame(width: .infinity, height: 250) // Задаем высоту графика
+                    .frame(width: 320, height: 200) // Задаем высоту графика
                     //.padding()
                 }
                 
@@ -88,7 +88,7 @@ struct StatsView: View {
                         .shadow(radius: 10)
                         
                     }
-                    .frame(width: .infinity, height: 250)
+                    .frame(width: 320, height: 200)
                     //.padding()
                     
                    
