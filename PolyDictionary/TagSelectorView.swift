@@ -41,7 +41,7 @@ struct TagSelectorView: View {
                                 .shadow(radius: 5)
                                 .frame(width: 25, height: 25)
                                 .onTapGesture {
-                                    selectedColor = color // Выбор цвета
+                                    selectedColor = color
                                 }
                                 .overlay(
                                     Circle()
@@ -59,7 +59,7 @@ struct TagSelectorView: View {
                             availableTags.append(newTagObj)
                             selectedTags.append(newTag)
                             newTag = ""
-                            selectedColor = .yellow // Сброс цвета на стандартный
+                            selectedColor = .yellow
                         }) {
                             Text("Add")
                                 .foregroundColor(.blue)
@@ -77,7 +77,7 @@ struct TagSelectorView: View {
                             Spacer()
                            // Circle()
                             //    .fill(tag.color)
-                            //    .frame(width: 20, height: 20) // Показываем цвет тега
+                            //    .frame(width: 20, height: 20)
                             if selectedTags.contains(tag.name) {
                                 Image(systemName: "checkmark")
                             }
@@ -95,10 +95,10 @@ struct TagSelectorView: View {
             .navigationBarTitle("Select Tags", displayMode: .inline)
             .navigationBarItems(
                 leading: Button("Close") {
-                    dismiss() // Закрываем окно
+                    dismiss()
                 },
                 trailing: Button("Done") {
-                    dismiss() // Закрываем окно
+                    dismiss() 
                 }
             )
         }
