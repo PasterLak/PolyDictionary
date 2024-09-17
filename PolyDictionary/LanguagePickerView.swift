@@ -49,14 +49,14 @@ struct LanguagePickerView: View {
         .padding(.horizontal)
     }
     
-    // View для отображения секции с языками
+  
     private func languageSection(languages: [Language]) -> some View {
         ForEach(languages) { language in
             languageButton(for: language)
         }
     }
     
-    // View для отображения кнопки выбора языка
+    
     private func languageButton(for language: Language) -> some View {
         Button(action: {
             selectLanguage(language)
@@ -73,7 +73,7 @@ struct LanguagePickerView: View {
         .disabled(selectedLanguages.contains(language))
     }
     
-    // Метод для выбора языка
+  
     private func selectLanguage(_ language: Language) {
         if !selectedLanguages.contains(language) {
             selectedLanguages.append(language)
@@ -81,7 +81,7 @@ struct LanguagePickerView: View {
         dismiss()
     }
     
-    // Отфильтрованные языки по поиску
+
     var filteredLanguages: [Language] {
         if searchText.isEmpty {
             return Language.allLanguages.filter { !selectedLanguages.contains($0) }

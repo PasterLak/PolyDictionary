@@ -8,7 +8,7 @@ struct OnboardingView: View {
     @Binding var showOnboarding: Bool
     @State private var currentPage = 0
     @State private var animateImage = false
-    @State private var animateText = false // Новая переменная для анимации текста
+    @State private var animateText = false
     
     let pages = [
         OnboardingPage(title: NSLocalizedString("onboarding.welcome", comment: ""), description: NSLocalizedString("onboarding.description1", comment: ""), image: "onboarding1"),
@@ -22,9 +22,9 @@ struct OnboardingView: View {
                 ForEach(0..<pages.count, id: \.self) { index in
                     OnboardingPageView(page: pages[index], animateImage: $animateImage, animateText: $animateText)
                         .tag(index)
-                        .transition(.slide) // Плавный слайд-переход между страницами
+                        .transition(.slide)
                         .onAppear {
-                            // При появлении новой страницы запускаем анимации
+                            
                             withAnimation(.easeInOut(duration: 1)) {
                                 animateImage = true
                             }
@@ -33,7 +33,7 @@ struct OnboardingView: View {
                             }
                         }
                         .onChange(of: currentPage) { _ in
-                            // Перезапускаем анимации при смене страницы
+                           
                             animateImage = false
                             animateText = false
                             DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
@@ -51,7 +51,7 @@ struct OnboardingView: View {
             .animation(.easeInOut)
             .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .always))
             
-            // Кнопка "Далее"
+          
             Button(action: {
                 if currentPage < pages.count - 1 {
                     withAnimation {

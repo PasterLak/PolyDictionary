@@ -16,12 +16,12 @@ struct AddDictionaryView: View {
             List {
                 Image("dictionary")
                     .resizable()
-                    .aspectRatio(contentMode: .fit) // Масштабируем по содержимому
-                    //.frame(width: 100, height: 100) // Устанавливаем размер
+                    .aspectRatio(contentMode: .fit)
+                    //.frame(width: 100, height: 100)
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    //.clipShape(Circle()) // Обрезаем изображение в форме круга
-                    //.overlay(Circle().stroke(Color.white, lineWidth: 4)) // Добавляем обводку
-                    //.shadow(radius: 0) // Тень
+                    //.clipShape(Circle())
+                    //.overlay(Circle().stroke(Color.white, lineWidth: 4))
+                    //.shadow(radius: 0) 
                     
                 
                 Section(header: Text("Dictionary Name")) {

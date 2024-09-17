@@ -5,13 +5,13 @@ struct WordsView: View {
     var dictionary: DictionaryModel
     @State private var words: [WordModel] = []
     
-    @State private var filteredWords: [WordModel] = [] // Список для отфильтрованных слов
+    @State private var filteredWords: [WordModel] = []
     @State private var isPresented: Bool = false
     @State private var showingLearning = false
     
     @EnvironmentObject var settings: Settings
     
-    @State private var searchText = "" // Поле для ввода текста поиска
+    @State private var searchText = ""
     
     var body: some View {
         VStack {
@@ -22,7 +22,7 @@ struct WordsView: View {
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .padding(.horizontal)
                     .onChange(of: searchText) { newValue in
-                        filterWords(searchText: newValue) // Обновление фильтра при изменении текста
+                        filterWords(searchText: newValue) 
                     }
             }
             .padding(.horizontal)

@@ -53,7 +53,7 @@ struct AddWordView: View {
                 TagSelectorView(selectedTags: $selectedTags)
             }
         }
-       // .presentationDetents([.medium, .large]) // Отображаем окно снизу вверх
+       // .presentationDetents([.medium, .large]) 
     }
 }
 

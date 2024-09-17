@@ -12,7 +12,7 @@ struct EditDictionaryView: View {
 
     init(dictionary: DictionaryModel) {
         self.dictionary = dictionary
-        self._name = State(initialValue: dictionary.name) // Инициализация имени словаря
+        self._name = State(initialValue: dictionary.name)
     }
 
     var body: some View {
@@ -30,16 +30,16 @@ struct EditDictionaryView: View {
                     saveChanges()
                     dismiss()
                 }
-                .disabled(name.isEmpty) // Деактивируем кнопку, если имя пустое
+                .disabled(name.isEmpty)
             )
         }
         .preferredColorScheme(settings.isDarkMode ? .dark : .light)
     }
     
-    // Метод для сохранения изменений
+ 
     private func saveChanges() {
         dictionary.name = name
-        try? modelContext.save() // Сохраняем изменения в базу данных
+        try? modelContext.save()
     }
 }
 

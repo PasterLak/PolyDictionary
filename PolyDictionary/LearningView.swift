@@ -78,7 +78,6 @@ struct LearningView: View {
 }
 
 
-// Модель для плиток тренировок
 struct TrainingType: Identifiable {
     let id = UUID()
     let name: String
@@ -86,10 +85,10 @@ struct TrainingType: Identifiable {
     let icon: String
 }
 
-// View для каждой плитки тренировки с анимацией нажатия
+
 struct TrainingTileView: View {
     let training: TrainingType
-    @State private var isPressed: Bool = false // Для отслеживания нажатия
+    @State private var isPressed: Bool = false
     
     var body: some View {
         ZStack {
@@ -145,7 +144,7 @@ struct SettingsView2: View {
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
                     Button("Close") {
-                        dismiss() // Закрываем окно настроек
+                        dismiss() 
                     }
                 }
             }

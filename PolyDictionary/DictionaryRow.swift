@@ -20,7 +20,7 @@ struct DictionaryRow: View {
                 Spacer()
                 
                 HStack {
-                    // Map language codes to Language objects and display
+                   
                     ForEach(dictionary.languages, id: \.self) { code in
                         let language = Language.getLanguageByCode(code: code)
                         HStack(spacing: 2) {
