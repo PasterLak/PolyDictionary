@@ -53,7 +53,7 @@ struct WordsView: View {
                 }
                 .background(settings.isDarkMode ? Color(UIColor.systemBackground) : Color(UIColor.secondarySystemBackground))
                 .sheet(isPresented: $showingLearning) {
-                    LearningView()
+                    TrainingView()
                 }
                 
                 VStack {

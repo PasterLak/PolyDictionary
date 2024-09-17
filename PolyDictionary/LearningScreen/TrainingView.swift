@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct LearningView: View {
+struct TrainingView: View {
     @Environment(\.dismiss) var dismiss
     @State private var showingSettings = false
     
@@ -71,89 +71,18 @@ struct LearningView: View {
                 }
             }
             .sheet(isPresented: $showingSettings) {
-                SettingsView2()
+                TrainingSettingsView()
             }
         }
     }
 }
 
 
-struct TrainingType: Identifiable {
-    let id = UUID()
-    let name: String
-    let color: Color
-    let icon: String
-}
 
 
-struct TrainingTileView: View {
-    let training: TrainingType
-    @State private var isPressed: Bool = false
-    
-    var body: some View {
-        ZStack {
-            RoundedRectangle(cornerRadius: 15)
-                .fill(training.color)
-                .frame(height: 120)
-                .shadow(color: isPressed ? .gray : .clear, radius: isPressed ? 10 : 5)
-                .scaleEffect(isPressed ? 0.95 : 1.0)
-                .animation(.easeInOut(duration: 0.1), value: isPressed)
-                .onTapGesture {
-                  
-                    withAnimation(.easeInOut(duration: 0.2)) {
-                        isPressed = true
-                    }
-                    
-                   
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                        withAnimation(.easeInOut(duration: 0.2)) {
-                            isPressed = false
-                        }
-                       
-                    }
-                }
-            
-            HStack{
-                Image(systemName: training.icon).foregroundColor(.white)
-                    .shadow(color: isPressed ? .gray : .clear, radius: isPressed ? 10 : 5)
-                Text(training.name)
-                    .foregroundColor(.white)
-                    .font(.headline)
-                    .shadow(color: isPressed ? .gray : .clear, radius: isPressed ? 10 : 5)
-                
-            }
-            
-            
-        }
-        .scaleEffect(1.0)
-    }
-}
-
-struct SettingsView2: View {
-    @Environment(\.dismiss) var dismiss
-    
-    var body: some View {
-        NavigationView {
-            VStack {
-                Text("Settings for Learning Words")
-                    .font(.headline)
-                    .padding()
-                Spacer()
-            }
-            .navigationBarTitle("Settings", displayMode: .inline)
-            .toolbar {
-                ToolbarItem(placement: .cancellationAction) {
-                    Button("Close") {
-                        dismiss() 
-                    }
-                }
-            }
-        }
-    }
-}
 
 #Preview {
-    LearningView()
+    TrainingView()
         .environmentObject(Settings())
 }
 
