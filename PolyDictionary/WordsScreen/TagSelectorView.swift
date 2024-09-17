@@ -1,31 +1,29 @@
 import SwiftUI
 
-
 struct TagSelectorView: View {
     
     @Binding var selectedTags: [String]
-    
     @EnvironmentObject var settings: Settings
-    
     @State private var newTag: String = ""
     @State private var availableTags: [Tag] = [
-        Tag(name: "Verb", color: .yellow),
-        Tag(name: "Noun", color: .yellow),
-        Tag(name: "Adjective", color: .yellow)
+        Tag(name: "art", color: .purple),
+        Tag(name: "new", color: .green),
+        Tag(name: "food", color: .yellow),
+        Tag(name: "verb", color: .yellow),
+        Tag(name: "noun", color: .yellow),
+        Tag(name: "adjective", color: .yellow)
     ]
     @State private var selectedColor: Color = .yellow
-    
     @Environment(\.dismiss) var dismiss
     
     let availableColors: [Color] = [.yellow, .blue, .green, .red, .purple]
+    let maxTags = 5
     
     var body: some View {
         NavigationView {
             Form {
-                
                 Section(header: Text("Add New Tag")) {
                     TextField("#tag", text: $newTag)
-                    
                     
                     HStack {
                         Text("Tag Color:")
@@ -40,9 +38,7 @@ struct TagSelectorView: View {
                                 }
                                 .overlay(
                                     Circle()
-                                    //.shadow(radius: 7)
-                                        .stroke( Color.white,
-                                                 lineWidth: selectedColor == color ? 4 : 0)
+                                        .stroke(Color.white, lineWidth: selectedColor == color ? 4 : 0)
                                 )
                         }
                     }
@@ -62,30 +58,31 @@ struct TagSelectorView: View {
                     }
                 }
                 
+                if selectedTags.count == maxTags {
+                    Section {
+                        Text("Maximum number of selected tags reached! \nYou can select up to \(maxTags) tags")
+                            .foregroundColor(.red)
+                            .font(.footnote)
+                    }
+                }
+                
                 Section(header: Text("Available Tags")) {
                     ForEach(availableTags) { tag in
                         HStack {
                             Text("#" + tag.name.lowercased())
-                            
                                 .foregroundColor(getColor(tag.color))
-                            //.bold()
                             Spacer()
-                            // Circle()
-                            //    .fill(tag.color)
-                            //    .frame(width: 20, height: 20)
                             if selectedTags.contains(tag.name) {
                                 Image(systemName: "checkmark")
                             }
                         }
                         .onTapGesture {
-                            if selectedTags.contains(tag.name) {
-                                selectedTags.removeAll(where: { $0 == tag.name })
-                            } else {
-                                selectedTags.append(tag.name)
-                            }
+                            handleTagSelection(tag: tag)
                         }
                     }
                 }
+                
+                
             }
             .navigationBarTitle("Select Tags", displayMode: .inline)
             .navigationBarItems(
@@ -97,25 +94,20 @@ struct TagSelectorView: View {
                 }
             )
         }
-        
-        
     }
     
-    func getColor(_ color: Color) -> Color
-    {
-        if color == .yellow
-        {
-            if settings.isDarkMode
-            {
-                return .yellow
-            }
-            else
-            {
-                return Color(red: 0.95, green: 0.6, blue: 0.1)
-            }
-            
+    private func handleTagSelection(tag: Tag) {
+        if selectedTags.contains(tag.name) {
+            selectedTags.removeAll(where: { $0 == tag.name })
+        } else if selectedTags.count < maxTags {
+            selectedTags.append(tag.name)
         }
-        
+    }
+    
+    func getColor(_ color: Color) -> Color {
+        if color == .yellow {
+            return settings.isDarkMode ? .yellow : Color(red: 0.95, green: 0.6, blue: 0.1)
+        }
         return color
     }
 }

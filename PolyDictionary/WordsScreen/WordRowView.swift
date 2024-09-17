@@ -2,7 +2,7 @@ import SwiftUI
 
 struct WordRowView: View {
     
-    let wordItem: WordModel
+    let wordModel: WordModel
     
     @EnvironmentObject var settings: Settings
     
@@ -10,17 +10,17 @@ struct WordRowView: View {
         HStack {
             VStack(alignment: .leading) {
                 
-                Text(wordItem.word["English"] ?? "Error")
+                Text(wordModel.word.first?.value ?? "Error")
                     .font(.headline)
                     
                 
 
-                Text(wordItem.getTranslationsWithFlags())
+                Text(wordModel.getTranslationsWithFlags())
                     .font(.subheadline)
                     .foregroundColor(.gray)
                 
                
-                Text(wordItem.getTagsAsString())
+                Text(wordModel.getTagsAsString())
                     .font(.caption)
                // rgb(236, 173, 21)
                     .foregroundColor(settings.isDarkMode ? .yellow : Color(red: 0.95, green: 0.6, blue: 0.1))
@@ -30,10 +30,10 @@ struct WordRowView: View {
             
             ZStack {
                 Circle()
-                    .stroke(colorForPercentage(wordItem.percentage), lineWidth: wordItem.percentage < 100 ? 2 : 0)
+                    .stroke(colorForPercentage(wordModel.percentage), lineWidth: wordModel.percentage < 100 ? 2 : 0)
                     .frame(width: 50, height: 50)
-                if wordItem.percentage < 100 {
-                    Text("\(wordItem.percentage)%")
+                if wordModel.percentage < 100 {
+                    Text("\(wordModel.percentage)%")
                         .font(.headline)
                 } else {
                     Image(systemName: "checkmark.circle.fill")
@@ -46,12 +46,12 @@ struct WordRowView: View {
         .padding(.vertical, 8)
         .onTapGesture {
             
-            print("Word tapped: \(wordItem.word)")
+            print("Word tapped: \(wordModel.word)")
         }
         .swipeActions(edge: .leading) {
             Button(action: {
                
-                print("Edit \(wordItem.word)")
+                print("Edit \(wordModel.word)")
             }) {
                 Label("Edit", systemImage: "pencil")
             }
@@ -60,7 +60,7 @@ struct WordRowView: View {
         .swipeActions(edge: .trailing) {
             Button(role: .destructive) {
                 
-                print("Delete \(wordItem.word)")
+                print("Delete \(wordModel.word)")
             } label: {
                 Label("Delete", systemImage: "trash")
             }
@@ -68,7 +68,7 @@ struct WordRowView: View {
         .preferredColorScheme(settings.isDarkMode ? .dark : .light)
     }
     
-    func colorForPercentage(_ percentage: Int) -> Color {
+    func colorForPercentage(_ percentage: Int8) -> Color {
         switch percentage {
         case ..<20:
             return Color.red
@@ -88,7 +88,7 @@ struct WordRowView: View {
 
 #Preview {
     WordRowView(
-        wordItem: WordModel(word: ["English": "Apple", "German": "Apfel", "Russian": "Яблоко"], percentage: Int.random(in: 1...100), tags: ["#tag"])
+        wordModel: WordModel(word: ["English": "Apple", "German": "Apfel", "Russian": "Яблоко"], percentage: Int8.random(in: 1...100), tags: ["#tag"])
     )
         .environmentObject(Settings())
 }

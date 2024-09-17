@@ -34,6 +34,9 @@
         }
       }
     },
+    "%d%%" : {
+
+    },
     "%lld" : {
 
     },
@@ -47,9 +50,6 @@
           }
         }
       }
-    },
-    "%lld%%" : {
-
     },
     "86" : {
       "localizations" : {
@@ -316,9 +316,6 @@
         }
       }
     },
-    "hello" : {
-
-    },
     "Language" : {
       "localizations" : {
         "ru" : {
@@ -378,6 +375,9 @@
           }
         }
       }
+    },
+    "Maximum number of selected tags reached! \nYou can select up to %lld tags" : {
+
     },
     "My Dictionary" : {
       "localizations" : {
@@ -653,6 +653,9 @@
         }
       }
     },
+    "Sort Options" : {
+
+    },
     "Statistics" : {
       "localizations" : {
         "ru" : {
@@ -742,9 +745,6 @@
           }
         }
       }
-    },
-    "welcome" : {
-
     },
     "Word in %@" : {
 

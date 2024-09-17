@@ -8,7 +8,9 @@ struct WordsView: View {
     @State private var filteredWords: [WordModel] = []
     @State private var isPresented: Bool = false
     @State private var showingLearning = false
-    
+    @State private var showingSortOptions = false
+    @State private var selectedSortOption: SortOption = .nameAscending
+
     @EnvironmentObject var settings: Settings
     
     @State private var searchText = ""
@@ -22,8 +24,14 @@ struct WordsView: View {
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .padding(.horizontal)
                     .onChange(of: searchText) { newValue in
-                        filterWords(searchText: newValue) 
+                        filterWords(searchText: newValue)
                     }
+                Button(action: {
+                    showingSortOptions = true
+                }) {
+                    Image(systemName: "slider.horizontal.3")
+                        .padding(.trailing)
+                }
             }
             .padding(.horizontal)
             
@@ -31,14 +39,16 @@ struct WordsView: View {
                 ScrollView {
                     LazyVStack {
                         ForEach(filteredWords) { wordItem in
-                            WordRowView(wordItem: wordItem)
+                            WordRowView(wordModel: wordItem)
                                 .padding(.horizontal)
                         }
                     }
                 }
                 .onAppear {
+                    loadSortOption()
                     words = Words.WordsDictionary
-                    filteredWords = words // Изначально отображаем все слова
+                    filteredWords = words
+                    sortWords(option: selectedSortOption)
                 }
                 .navigationBarTitle(dictionary.name, displayMode: .inline)
                 .toolbar {
@@ -74,21 +84,32 @@ struct WordsView: View {
                         }
                         .padding()
                         .sheet(isPresented: $isPresented) {
-                            AddWordView(dictionary: dictionary)
+                            AddWordView(dictionary: dictionary) { newWord in
+                                words.append(newWord)
+                                filteredWords = words
+                                sortWords(option: selectedSortOption)
+                            }
                         }
+
                     }
                 }
             }
         }
         .background(settings.isDarkMode ? Color(UIColor.systemBackground) : Color(UIColor.secondarySystemBackground))
+        .sheet(isPresented: $showingSortOptions, onDismiss: {
+            sortWords(option: selectedSortOption)
+            saveSortOption()
+        }) {
+            SortOptionsView(selectedSortOption: $selectedSortOption)
+        }
     }
-    
     
     private func filterWords(searchText: String) {
         let lowercasedSearchText = searchText.lowercased().trimmingCharacters(in: .whitespacesAndNewlines)
 
         if lowercasedSearchText.isEmpty {
             filteredWords = words
+            sortWords(option: selectedSortOption)
         } else if lowercasedSearchText == "#" {
             filteredWords = words.filter { !$0.tags.isEmpty }
         } else if lowercasedSearchText.hasPrefix("#") {
@@ -120,21 +141,55 @@ struct WordsView: View {
                 }
             }
         }
+        
+      
+        sortWords(option: selectedSortOption)
+    }
+
+    
+    private func sortWords(option: SortOption) {
+        let startTime = CFAbsoluteTimeGetCurrent()
+
+        selectedSortOption = option
+        switch option {
+        case .percentageAscending:
+            filteredWords.sort { $0.percentage < $1.percentage }
+        case .percentageDescending:
+            filteredWords.sort { $0.percentage > $1.percentage }
+        case .nameAscending:
+            filteredWords.sort { $0.word.first?.value.lowercased() ?? "" < $1.word.first?.value.lowercased() ?? "" }
+        case .nameDescending:
+            filteredWords.sort { $0.word.first?.value.lowercased() ?? "" > $1.word.first?.value.lowercased() ?? "" }
+        case .dateAddedAscending:
+            filteredWords.sort { $0.dateAdded < $1.dateAdded }
+        case .dateAddedDescending:
+            filteredWords.sort { $0.dateAdded > $1.dateAdded }
+        }
+
+        let endTime = CFAbsoluteTimeGetCurrent()
+        let timeElapsed = (endTime - startTime) * 1000.0
+        print("Sorting took \(timeElapsed) ms")
     }
 
 
-}
-
-struct WordsView_Previews: PreviewProvider {
-    static var previews: some View {
-        NavigationView {
-            WordsView(dictionary: DictionaryModel(
-                name: "Sample Dictionary",
-                languages: ["RU", "DE"],
-                wordCount: 100
-            ))
-            .environmentObject(Settings())
-            .modelContainer(for: DictionaryModel.self)
+    private func saveSortOption() {
+        UserDefaults.standard.set(selectedSortOption.rawValue, forKey: "selectedSortOption")
+    }
+    
+    private func loadSortOption() {
+        if let savedSortOption = UserDefaults.standard.value(forKey: "selectedSortOption") as? Int,
+           let option = SortOption(rawValue: savedSortOption) {
+            selectedSortOption = option
         }
     }
 }
+
+public enum SortOption: Int {
+    case percentageAscending
+    case percentageDescending
+    case nameAscending
+    case nameDescending
+    case dateAddedAscending
+    case dateAddedDescending
+}
+
