@@ -4,6 +4,9 @@
     "\nPoly Dictionary" : {
 
     },
+    "#tag" : {
+
+    },
     "%@ %@" : {
       "localizations" : {
         "en" : {
@@ -84,6 +87,12 @@
         }
       }
     },
+    "Add New Tag" : {
+
+    },
+    "Add New Word" : {
+
+    },
     "App Version 0.1\n" : {
       "localizations" : {
         "ru" : {
@@ -104,6 +113,9 @@
           }
         }
       }
+    },
+    "Available Tags" : {
+
     },
     "Basic:" : {
       "localizations" : {
@@ -184,6 +196,9 @@
           }
         }
       }
+    },
+    "Done" : {
+
     },
     "Edit" : {
       "localizations" : {
@@ -501,6 +516,12 @@
         }
       }
     },
+    "Select Tags" : {
+
+    },
+    "Selected Tags:" : {
+
+    },
     "Settings" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -513,6 +534,12 @@
       }
     },
     "Statistics" : {
+
+    },
+    "Tag Color:" : {
+
+    },
+    "Tags" : {
 
     },
     "Theme" : {
@@ -541,6 +568,9 @@
     "Total words:" : {
 
     },
+    "Translations" : {
+
+    },
     "Use Face ID" : {
       "localizations" : {
         "ru" : {
@@ -552,6 +582,9 @@
       }
     },
     "welcome" : {
+
+    },
+    "Word in %@" : {
 
     }
   },
