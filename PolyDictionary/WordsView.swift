@@ -3,7 +3,7 @@ import SwiftUI
 struct WordsView: View {
     
     var dictionary: DictionaryModel
-    @State private var words: [WordItem] = []
+    @State private var words: [WordModel] = []
     
     @State private var isPresented: Bool = false
     @State private var showingLearning = false

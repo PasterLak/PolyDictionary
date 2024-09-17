@@ -2,8 +2,11 @@ import SwiftUI
 import SwiftData
 
 struct EditDictionaryView: View {
+    
     @Environment(\.dismiss) var dismiss
-    @Environment(\.modelContext) private var modelContext // Для сохранения изменений
+    @Environment(\.modelContext) private var modelContext
+    @EnvironmentObject var settings: Settings
+    
     var dictionary: DictionaryModel
     @State private var name: String
 
@@ -30,6 +33,7 @@ struct EditDictionaryView: View {
                 .disabled(name.isEmpty) // Деактивируем кнопку, если имя пустое
             )
         }
+        .preferredColorScheme(settings.isDarkMode ? .dark : .light)
     }
     
     // Метод для сохранения изменений

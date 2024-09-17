@@ -1,9 +1,23 @@
 import SwiftUI
 
+import SwiftUI
+
+struct RootView: View {
+    @EnvironmentObject var languageManager: LanguageManager
+
+    var body: some View {
+        SettingsView()
+            .id(languageManager.selectedLanguage) // Используем id для перезагрузки представления при смене языка
+    }
+}
+
+
 struct SettingsView: View {
     
     @EnvironmentObject var settings: Settings
     @EnvironmentObject var languageManager: LanguageManager
+    
+    @State private var showingLanguageSelection = false
     
     var body: some View {
         
@@ -22,8 +36,7 @@ struct SettingsView: View {
                 .toggleStyle(SwitchToggleStyle(tint: .green))
             }
             
-            
-            Section(header: Text("Other settings:"), footer: Text("Not availible now")) {
+            Section(header: Text("Other settings:"), footer: Text("Not available now")) {
                 HStack {
                     Text("Theme")
                         .font(.headline)
@@ -37,6 +50,21 @@ struct SettingsView: View {
                 }
             }
             
+            Section(header: Text("Language")) {
+                HStack {
+                    Text("Language")
+                        .font(.headline)
+                    Spacer()
+                    Text(languageManager.selectedLanguage == "en" ? "English" : "Russian")
+                        .foregroundColor(.gray)
+                    Image(systemName: "chevron.right")
+                        .foregroundColor(.gray)
+                }
+                .contentShape(Rectangle())
+                .onTapGesture {
+                    showingLanguageSelection = true
+                }
+            }
             
             Section(footer: VStack(alignment: .center) {
                 Text("\nPoly Dictionary")
@@ -51,33 +79,60 @@ struct SettingsView: View {
             .frame(maxWidth: .infinity)) {
                 EmptyView()
             }
-            
-           /* VStack {
-                        Text("Dictionaries")
-
-                        Picker("Select Language", selection: $languageManager.selectedLanguage) {
-                            Text("English").tag("en")
-                            Text("Russian").tag("ru")
-                            
-                        }
-                        .pickerStyle(SegmentedPickerStyle())
-                        .padding()
-                    }
-                    .onChange(of: languageManager.selectedLanguage) { newValue in
-                        languageManager.setLanguage(newValue)
-                    }*/
         }
         .listStyle(InsetGroupedListStyle())
         .navigationBarTitle("Settings", displayMode: .inline)
-        
-        
+        .sheet(isPresented: $showingLanguageSelection) {
+            LanguageSelectionView()
+                .environmentObject(languageManager)
+        }
     }
 }
 
-struct SettingsView_Previews: PreviewProvider {
+struct LanguageSelectionView: View {
+    
+    @EnvironmentObject var languageManager: LanguageManager
+    
+    var body: some View {
+        List {
+            Section(header: Text("Select Language")) {
+                HStack {
+                    Text("English")
+                    Spacer()
+                    if languageManager.selectedLanguage == "en" {
+                        Image(systemName: "checkmark")
+                            .foregroundColor(.blue)
+                    }
+                }
+                .contentShape(Rectangle())
+                .onTapGesture {
+                    languageManager.setLanguage("en")
+                }
+                
+                HStack {
+                    Text("Russian")
+                    Spacer()
+                    if languageManager.selectedLanguage == "ru" {
+                        Image(systemName: "checkmark")
+                            .foregroundColor(.blue)
+                    }
+                }
+                .contentShape(Rectangle())
+                .onTapGesture {
+                    languageManager.setLanguage("ru")
+                }
+            }
+        }
+        .listStyle(InsetGroupedListStyle())
+        .navigationBarTitle("Language", displayMode: .inline)
+    }
+}
+
+struct RootView_Previews: PreviewProvider {
     static var previews: some View {
-        SettingsView()
+        RootView()
             .environmentObject(Settings())
             .environmentObject(LanguageManager())
     }
 }
+

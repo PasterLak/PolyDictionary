@@ -4,10 +4,12 @@ import SwiftData
 struct DictionariesView: View {
     @Environment(\.modelContext) private var modelContext
     @StateObject private var viewModel = DictionaryViewModel()
+    @EnvironmentObject var settings: Settings
     
     @Query private var dictionaries: [DictionaryModel]
     
     @State private var showAddDictionarySheet = false
+    @State private var showStatsSheet = false
     @State private var dictionaryToDelete: DictionaryModel?
     @State private var showDeleteConfirmation = false
     @State private var selectedDictionaryForEditing: DictionaryModel?
@@ -19,6 +21,7 @@ struct DictionariesView: View {
                 NavigationLink(destination: WordsView(dictionary: dictionary)) {
                     DictionaryRow(dictionary: dictionary)
                 }
+                
                 .buttonStyle(PlainButtonStyle())
                 .swipeActions(edge: .trailing) {
                     Button(role: .destructive) {
@@ -42,16 +45,26 @@ struct DictionariesView: View {
         .listStyle(InsetGroupedListStyle())
         .navigationBarTitle("Dictionaries", displayMode: .large)
         .toolbar {
-            ToolbarItem(placement: .navigationBarTrailing) { // Добавляем кнопку в правом верхнем углу
+            ToolbarItem(placement: .navigationBarTrailing) {
                 Button(action: {
                     showAddDictionarySheet = true
                 }) {
-                    Image(systemName: "plus") // Отображаем значок "+"
+                    Image(systemName: "plus")
+                }
+            }
+            ToolbarItem(placement: .navigationBarLeading) {
+                Button(action: {
+                    showStatsSheet = true
+                }) {
+                    Image(systemName: "chart.bar.xaxis")
                 }
             }
         }
         .sheet(isPresented: $showAddDictionarySheet) {
-            AddDictionaryView() // Открываем представление для добавления словаря
+            AddDictionaryView()
+        }
+        .sheet(isPresented: $showStatsSheet) {
+            StatsView()
         }
         .sheet(item: $selectedDictionaryForEditing) { dictionary in
             EditDictionaryView(dictionary: dictionary)
@@ -63,9 +76,11 @@ struct DictionariesView: View {
                 }
             }
             Button("Cancel", role: .cancel) { }
+            
         }
+        .preferredColorScheme(settings.isDarkMode ? .dark : .light)
         .onAppear {
-           
+            
             if dictionaries.isEmpty {
                 addDefaultDictionaries()
             }
@@ -79,14 +94,14 @@ struct DictionariesView: View {
         let defaultDictionaries = [
             DictionaryModel(name: "Learning russian", languages: ["EN", "RU"], wordCount: Int16(Int.random( in: 10...500))),
             DictionaryModel(name: "German-English Dictionary", languages: ["DE", "EN"], wordCount: Int16(Int.random( in: 10...500))),
-            DictionaryModel(name: "Spanish-English Dictionary", languages: ["ES", "EN"], wordCount: Int16(Int.random( in: 10...500)))
+            DictionaryModel(name: "Latin languages", languages: ["ES", "IT", "PT"], wordCount: Int16(Int.random( in: 10...500)))
         ]
         
         for dictionary in defaultDictionaries {
             modelContext.insert(dictionary)
         }
         
-        try? modelContext.save() // Сохраняем изменения в базу данных
+        try? modelContext.save()
     }
     
 }

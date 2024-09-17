@@ -1,12 +1,19 @@
 import SwiftUI
 
 struct DictionaryRow: View {
+    
     var dictionary: DictionaryModel
     
+    @EnvironmentObject var settings: Settings
+    
     var body: some View {
+        
         ZStack(alignment: .leading) {
             RoundedRectangle(cornerRadius: 8)
-                .fill(Color(UIColor.secondarySystemBackground))
+                //.fill(Color.gray)
+                
+                .fill(settings.isDarkMode ? Color(UIColor.secondarySystemBackground) : Color(UIColor.systemBackground))
+                //.shadow(radius: 1)
             VStack(alignment: .leading) {
                 Text(dictionary.name)
                     .font(.headline)
@@ -30,6 +37,7 @@ struct DictionaryRow: View {
             .padding()
         }
         .frame(height: 90)
+        
     }
 }
 

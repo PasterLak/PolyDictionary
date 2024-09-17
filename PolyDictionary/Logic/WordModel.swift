@@ -1,7 +1,8 @@
 import Foundation
+import SwiftUI
 
 
-public struct WordItem: Identifiable {
+public struct WordModel: Identifiable {
     public let id = UUID()
     public let word: [String: String]
     public let percentage: Int

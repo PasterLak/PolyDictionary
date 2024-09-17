@@ -10,41 +10,78 @@ struct LanguagePickerView: View {
     var body: some View {
         VStack {
             Text("Select language")
-                .bold().font(.headline).padding()
-            HStack {
-                Image(systemName: "magnifyingglass") 
-                TextField("Search Languages", text: $searchText)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                    .padding(.horizontal)
-            }
-            .padding()
+                .bold()
+                .font(.headline)
+                .padding()
+            
+            searchBar
             
             List {
-                ForEach(filteredLanguages) { language in
-                    Button(action: {
-                        if !selectedLanguages.contains(language) {
-                            selectedLanguages.append(language)
-                        }
-                        dismiss()
-                    }) {
-                        HStack {
-                            Text("\(language.flag) \(language.name)")
-                            Spacer()
-                            if selectedLanguages.contains(language) {
-                                Image(systemName: "checkmark")
-                                    .foregroundColor(.blue)
-                            }
-                        }
+                if searchText.isEmpty {
+                    Section(header: Text("Top 5 Popular Languages")) {
+                        languageSection(languages: topPopularLanguages)
                     }
-                    .disabled(selectedLanguages.contains(language))
+                    Section(header: Text("Other languages")) {
+                        languageSection(languages: otherLanguages)
+                    }
+                } else {
+                    languageSection(languages: filteredLanguages)
                 }
             }
+            .navigationBarItems(
+                leading: Button("Close") { dismiss() }
+            )
             .listStyle(InsetGroupedListStyle())
         }
-        .navigationTitle("Select Language")
+        
         .preferredColorScheme(settings.isDarkMode ? .dark : .light)
     }
     
+    private var searchBar: some View {
+        HStack {
+            Image(systemName: "magnifyingglass")
+                .padding(.leading)
+            TextField("Search Languages", text: $searchText)
+                .textFieldStyle(RoundedBorderTextFieldStyle())
+                .padding(.horizontal)
+            
+        }
+        .padding(.horizontal)
+    }
+    
+    // View для отображения секции с языками
+    private func languageSection(languages: [Language]) -> some View {
+        ForEach(languages) { language in
+            languageButton(for: language)
+        }
+    }
+    
+    // View для отображения кнопки выбора языка
+    private func languageButton(for language: Language) -> some View {
+        Button(action: {
+            selectLanguage(language)
+        }) {
+            HStack {
+                Text("\(language.flag) \(language.name)")
+                Spacer()
+                if selectedLanguages.contains(language) {
+                    Image(systemName: "checkmark")
+                        .foregroundColor(.blue)
+                }
+            }
+        }
+        .disabled(selectedLanguages.contains(language))
+    }
+    
+    // Метод для выбора языка
+    private func selectLanguage(_ language: Language) {
+        if !selectedLanguages.contains(language) {
+            selectedLanguages.append(language)
+        }
+        dismiss()
+    }
+    
+    // Отфильтрованные языки по поиску
     var filteredLanguages: [Language] {
         if searchText.isEmpty {
             return Language.allLanguages.filter { !selectedLanguages.contains($0) }
@@ -54,9 +91,20 @@ struct LanguagePickerView: View {
             }
         }
     }
+    
+    
+    var topPopularLanguages: [Language] {
+        return Array(filteredLanguages.sorted(by: { $0.rating > $1.rating }).prefix(5))
+    }
+    
+    
+    var otherLanguages: [Language] {
+        let topLanguages = Set(topPopularLanguages)
+        return filteredLanguages
+            .filter { !topLanguages.contains($0) }
+            .sorted(by: { $0.name < $1.name })
+    }
 }
-
-
 
 struct LanguagePickerView_Previews: PreviewProvider {
     @State static var selectedLanguages: [Language] = []

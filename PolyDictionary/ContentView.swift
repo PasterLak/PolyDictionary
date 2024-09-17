@@ -1,32 +1,39 @@
 import SwiftUI
 
 struct ContentView: View {
-    
     @EnvironmentObject var settings: Settings
+    @State private var showOnboarding = true
 
     var body: some View {
-        TabView {
-            NavigationView {
-                DictionariesView()
-            }
-            .tabItem {
-                Image(systemName: "character.book.closed")
-                Text("Dictionaries")
-            }
-            
-            NavigationView {
-                SettingsView()
-            }
-            .tabItem {
-                Image(systemName: "gear")
-                Text("Settings")
+        ZStack {
+            if showOnboarding {
+                OnboardingView(showOnboarding: $showOnboarding)
+                    .transition(.opacity)
+            } else {
+                TabView {
+                    NavigationView {
+                        DictionariesView()
+                    }
+                    .tabItem {
+                        Image(systemName: "character.book.closed")
+                        Text("Dictionaries")
+                    }
+                    
+                    NavigationView {
+                        SettingsView()
+                    }
+                    .tabItem {
+                        Image(systemName: "gear")
+                        Text("Settings")
+                    }
+                }
+                .preferredColorScheme(settings.isDarkMode ? .dark : .light)
+                .modelContainer(for: [DictionaryModel.self])
+                .transition(.move(edge: .bottom))
             }
         }
-        .preferredColorScheme(settings.isDarkMode ? .dark : .light)
-        .modelContainer(for: [DictionaryModel.self])
-       
+        .animation(.easeInOut(duration: 0.5), value: showOnboarding)
     }
-   
 }
 
 struct ContentView_Previews: PreviewProvider {
@@ -37,4 +44,3 @@ struct ContentView_Previews: PreviewProvider {
             .modelContainer(for: [DictionaryModel.self])
     }
 }
-

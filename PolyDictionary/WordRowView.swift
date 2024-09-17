@@ -2,7 +2,7 @@ import SwiftUI
 
 struct WordRowView: View {
     
-    let wordItem: WordItem
+    let wordItem: WordModel
     
     @EnvironmentObject var settings: Settings
     
@@ -86,7 +86,7 @@ struct WordRowView: View {
 
 #Preview {
     WordRowView(
-        wordItem: WordItem(word: ["English": "Apple", "German": "Apfel", "Russian": "Яблоко"], percentage: Int.random(in: 1...100), tags: ["#tag"])
+        wordItem: WordModel(word: ["English": "Apple", "German": "Apfel", "Russian": "Яблоко"], percentage: Int.random(in: 1...100), tags: ["#tag"])
     )
         .environmentObject(Settings())
 }

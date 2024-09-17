@@ -24,6 +24,9 @@
         }
       }
     },
+    "%lld" : {
+
+    },
     "%lld words" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -36,6 +39,9 @@
       }
     },
     "%lld%%" : {
+
+    },
+    "86" : {
 
     },
     "Add" : {
@@ -119,7 +125,13 @@
         }
       }
     },
+    "Close" : {
+
+    },
     "Copyright(c) 2024 Vladislav" : {
+
+    },
+    "Correct answers:" : {
 
     },
     "Dark Mode" : {
@@ -203,10 +215,34 @@
         }
       }
     },
+    "General" : {
+
+    },
+    "Get Started" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Начать"
+          }
+        }
+      }
+    },
     "hello" : {
 
     },
+    "Language" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Язык"
+          }
+        }
+      }
+    },
     "Languages" : {
+      "extractionState" : "stale",
       "localizations" : {
         "ru" : {
           "stringUnit" : {
@@ -215,6 +251,12 @@
           }
         }
       }
+    },
+    "Learned Words" : {
+
+    },
+    "Learned words:" : {
+
     },
     "Learning" : {
       "localizations" : {
@@ -236,6 +278,16 @@
         }
       }
     },
+    "My Dictionary" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Мой словарь"
+          }
+        }
+      }
+    },
     "Name" : {
       "localizations" : {
         "ru" : {
@@ -246,12 +298,145 @@
         }
       }
     },
-    "Not availible now" : {
+    "Next" : {
       "localizations" : {
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Не доступно сейчас"
+            "value" : "Дальше"
+          }
+        }
+      }
+    },
+    "Not available now" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Не доступно"
+          }
+        }
+      }
+    },
+    "onboarding.description1" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Easily manage your dictionaries."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Легко управляйте своими словорями"
+          }
+        }
+      }
+    },
+    "onboarding.description2" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Categorize and keep track of words."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Категоризируйте и отслеживайте слова."
+          }
+        }
+      }
+    },
+    "onboarding.description3" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "See how far you've come with your learning."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Посмотрите, насколько далеко вы продвинулись в своем обучении."
+          }
+        }
+      }
+    },
+    "onboarding.organizeWords" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Organize Words"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Организуйте слова"
+          }
+        }
+      }
+    },
+    "onboarding.trackProgress" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Track Your Progress"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Следите за своим прогрессом"
+          }
+        }
+      }
+    },
+    "onboarding.welcome" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Welcome to PolyDictionary"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Добро пожаловать в PolyDictionary"
+          }
+        }
+      }
+    },
+    "Other languages" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Другие языки"
+          }
+        }
+      }
+    },
+    "Other Languages" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Другие языки"
           }
         }
       }
@@ -327,6 +512,9 @@
         }
       }
     },
+    "Statistics" : {
+
+    },
     "Theme" : {
       "localizations" : {
         "ru" : {
@@ -336,6 +524,22 @@
           }
         }
       }
+    },
+    "Top 5 Popular Languages" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "5 самых популярных языков"
+          }
+        }
+      }
+    },
+    "Total Words" : {
+
+    },
+    "Total words:" : {
+
     },
     "Use Face ID" : {
       "localizations" : {
