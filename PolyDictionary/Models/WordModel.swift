@@ -1,8 +1,6 @@
 import Foundation
 import SwiftUI
 
-
-
 public struct WordModel: Identifiable {
     public let id = UUID()
     public let word: [String: String]

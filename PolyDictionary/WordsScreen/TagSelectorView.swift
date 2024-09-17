@@ -1,10 +1,5 @@
 import SwiftUI
 
-struct Tag: Identifiable {
-    let id = UUID()
-    let name: String
-    var color: Color
-}
 
 struct TagSelectorView: View {
     
@@ -31,7 +26,7 @@ struct TagSelectorView: View {
                 Section(header: Text("Add New Tag")) {
                     TextField("#tag", text: $newTag)
                     
-                   
+                    
                     HStack {
                         Text("Tag Color:")
                         Spacer()
@@ -45,9 +40,9 @@ struct TagSelectorView: View {
                                 }
                                 .overlay(
                                     Circle()
-                                        //.shadow(radius: 7)
+                                    //.shadow(radius: 7)
                                         .stroke( Color.white,
-                                                lineWidth: selectedColor == color ? 4 : 0)
+                                                 lineWidth: selectedColor == color ? 4 : 0)
                                 )
                         }
                     }
@@ -73,9 +68,9 @@ struct TagSelectorView: View {
                             Text("#" + tag.name.lowercased())
                             
                                 .foregroundColor(getColor(tag.color))
-                                //.bold()
+                            //.bold()
                             Spacer()
-                           // Circle()
+                            // Circle()
                             //    .fill(tag.color)
                             //    .frame(width: 20, height: 20)
                             if selectedTags.contains(tag.name) {
@@ -98,7 +93,7 @@ struct TagSelectorView: View {
                     dismiss()
                 },
                 trailing: Button("Done") {
-                    dismiss() 
+                    dismiss()
                 }
             )
         }

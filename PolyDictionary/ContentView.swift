@@ -2,6 +2,7 @@ import SwiftUI
 
 struct ContentView: View {
     @EnvironmentObject var settings: Settings
+    
     @State private var showOnboarding = true
 
     var body: some View {

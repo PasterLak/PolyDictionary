@@ -2,11 +2,12 @@ import SwiftUI
 import SwiftData
 
 struct AddDictionaryView: View {
+    
     @Environment(\.dismiss) var dismiss
     @EnvironmentObject var settings: Settings
-    @Environment(\.modelContext) private var modelContext // Используем контекст для сохранения
+    @Environment(\.modelContext) private var modelContext
     
-    @State private var name: String = "My Dictionary"
+    @State private var name: String = "New Dictionary"
     @State private var selectedLanguages: [Language] = []
     @State private var showLanguageSelection = false
     
