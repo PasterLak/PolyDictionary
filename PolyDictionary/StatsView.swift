@@ -52,7 +52,6 @@ struct StatsView: View {
                 }
                 
                 Section(header: Text("Learned words:")) {
-                    //Text("Learned words:")
                     Chart(statsData) { dataPoint in
                         BarMark(
                             x: .value("Total Words", dataPoint.totalWords),
@@ -61,9 +60,6 @@ struct StatsView: View {
                         )
                         .shadow(radius: 10)
                         .foregroundStyle(.green)
-                        //.foregroundStyle(by: .value("Total Words", dataPoint.totalWords))
-                        //.foregroundStyle(.red)
-                        
                         .cornerRadius(8)
                         .annotation(position: .top) {
                             Text("\(dataPoint.learnedWords)")
@@ -73,8 +69,7 @@ struct StatsView: View {
                         
                     }
                     
-                    .frame(width: 320, height: 200) // Задаем высоту графика
-                    //.padding()
+                    .frame(width: 320, height: 200)
                 }
                 
                 Section(header: Text("Correct answers:")) {

@@ -7,7 +7,7 @@ struct AddWordView: View {
     @State private var wordTranslations: [String: String] = [:]
     @State private var selectedTags: [String] = []
     @State private var isTagSelectorPresented = false
-    @Environment(\.dismiss) var dismiss 
+    @Environment(\.dismiss) var dismiss
     
     var body: some View {
         NavigationView {
@@ -15,7 +15,7 @@ struct AddWordView: View {
                 
                 Section(header: Text("Translations")) {
                     ForEach(dictionary.languages, id: \.self) { language in
-                        TextField("Word in \(language)", text: Binding(
+                        TextField("Word in \(Language.getLanguageByCode(code: language).name)", text: Binding(
                             get: { wordTranslations[language] ?? "" },
                             set: { wordTranslations[language] = $0 }
                         ))
@@ -23,7 +23,7 @@ struct AddWordView: View {
                     }
                 }
                 
-                // Выбор тегов
+                
                 Section(header: Text("Tags")) {
                     HStack {
                         Text("Selected Tags:")
@@ -42,10 +42,10 @@ struct AddWordView: View {
             .navigationBarTitle("Add New Word", displayMode: .inline)
             .navigationBarItems(
                 leading: Button("Close") {
-                    dismiss() // Закрываем окно
+                    dismiss()
                 },
                 trailing: Button("Add") {
-                    // Логика для добавления слова (сохранение данных)
+                   
                     dismiss()
                 }
             )
@@ -62,6 +62,9 @@ struct AddWordView: View {
 struct AddWordView_Previews: PreviewProvider {
     static var previews: some View {
         AddWordView(dictionary: DictionaryModel(name: "Sample Dictionary", languages: ["EN", "RU", "DE"], wordCount: 100))
+            .environmentObject(Settings())
+            .environmentObject(LanguageManager())
+            .modelContainer(for: [DictionaryModel.self])
     }
 }
 

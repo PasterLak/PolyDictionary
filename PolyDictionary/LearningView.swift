@@ -97,20 +97,20 @@ struct TrainingTileView: View {
                 .fill(training.color)
                 .frame(height: 120)
                 .shadow(color: isPressed ? .gray : .clear, radius: isPressed ? 10 : 5)
-                .scaleEffect(isPressed ? 0.95 : 1.0) // Изменение масштаба при нажатии
-                .animation(.easeInOut(duration: 0.1), value: isPressed) // Анимация
+                .scaleEffect(isPressed ? 0.95 : 1.0)
+                .animation(.easeInOut(duration: 0.1), value: isPressed)
                 .onTapGesture {
-                    // Анимация нажатия
+                  
                     withAnimation(.easeInOut(duration: 0.2)) {
                         isPressed = true
                     }
                     
-                    // Имитация короткой задержки для эффекта нажатия
+                   
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                         withAnimation(.easeInOut(duration: 0.2)) {
                             isPressed = false
                         }
-                        // Действие после нажатия (например, переход к тренировке)
+                       
                     }
                 }
             
