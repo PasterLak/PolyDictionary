@@ -14,6 +14,7 @@ struct TagSelectorView: View {
         Tag(name: "adjective", color: .yellow)
     ]
     @State private var selectedColor: Color = .yellow
+    @State private var showMaxTagAlert: Bool = false
     @Environment(\.dismiss) var dismiss
     
     let availableColors: [Color] = [.yellow, .blue, .green, .red, .purple]
@@ -43,26 +44,21 @@ struct TagSelectorView: View {
                         }
                     }
                     
-                    if newTag != "" {
+                    if !newTag.isEmpty {
                         Button(action: {
-                            guard !newTag.isEmpty else { return }
-                            let newTagObj = Tag(name: newTag, color: selectedColor)
-                            availableTags.append(newTagObj)
-                            selectedTags.append(newTag)
-                            newTag = ""
-                            selectedColor = .yellow
+                            if selectedTags.count < maxTags {
+                                let newTagObj = Tag(name: newTag, color: selectedColor)
+                                availableTags.append(newTagObj)
+                                selectedTags.append(newTag)
+                                newTag = ""
+                                selectedColor = .yellow
+                            } else {
+                                showMaxTagAlert = true
+                            }
                         }) {
                             Text("Add")
                                 .foregroundColor(.blue)
                         }
-                    }
-                }
-                
-                if selectedTags.count == maxTags {
-                    Section {
-                        Text("Maximum number of selected tags reached! \nYou can select up to \(maxTags) tags")
-                            .foregroundColor(.red)
-                            .font(.footnote)
                     }
                 }
                 
@@ -81,8 +77,6 @@ struct TagSelectorView: View {
                         }
                     }
                 }
-                
-                
             }
             .navigationBarTitle("Select Tags", displayMode: .inline)
             .navigationBarItems(
@@ -93,6 +87,9 @@ struct TagSelectorView: View {
                     dismiss()
                 }
             )
+            .alert(isPresented: $showMaxTagAlert) {
+                Alert(title: Text("Maximum number of selected tags reached!"), message: Text("You can select up to \(maxTags) tags."), dismissButton: .default(Text("OK")))
+            }
         }
     }
     
@@ -101,6 +98,8 @@ struct TagSelectorView: View {
             selectedTags.removeAll(where: { $0 == tag.name })
         } else if selectedTags.count < maxTags {
             selectedTags.append(tag.name)
+        } else {
+            showMaxTagAlert = true
         }
     }
     

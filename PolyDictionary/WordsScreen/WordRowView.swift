@@ -4,27 +4,29 @@ struct WordRowView: View {
     
     let wordModel: WordModel
     
+    var dictionary: DictionaryModel
+    
     @EnvironmentObject var settings: Settings
     
     var body: some View {
         HStack {
             VStack(alignment: .leading) {
                 
-                Text(wordModel.word.first?.value ?? "Error")
+                Text(getFirstWordFromDictionary())
                     .font(.headline)
-                    
                 
-
-                Text(wordModel.getTranslationsWithFlags())
+                
+                
+                Text(wordModel.getTranslationsWithFlags(for: dictionary.languages))
                     .font(.subheadline)
                     .foregroundColor(.gray)
                 
-               
+                
                 Text(wordModel.getTagsAsString())
                     .font(.caption)
-               // rgb(236, 173, 21)
+                // rgb(236, 173, 21)
                     .foregroundColor(settings.isDarkMode ? .yellow : Color(red: 0.95, green: 0.6, blue: 0.1))
-               
+                
             }
             Spacer()
             
@@ -50,7 +52,7 @@ struct WordRowView: View {
         }
         .swipeActions(edge: .leading) {
             Button(action: {
-               
+                
                 print("Edit \(wordModel.word)")
             }) {
                 Label("Edit", systemImage: "pencil")
@@ -68,6 +70,19 @@ struct WordRowView: View {
         .preferredColorScheme(settings.isDarkMode ? .dark : .light)
     }
     
+    func getFirstWordFromDictionary()-> String{
+        
+        let languageName = Language.getLanguageByCode(code: dictionary.languages[0]).name
+
+        if wordModel.word.contains(where: { $0.key == languageName }) {
+           
+            return wordModel.word[languageName] ?? "Error"
+        }
+       
+        return wordModel.word.first?.value ?? "Error"
+
+    }
+    
     func colorForPercentage(_ percentage: Int8) -> Color {
         switch percentage {
         case ..<20:
@@ -79,7 +94,7 @@ struct WordRowView: View {
         case 60...80:
             return Color.green
         case 80...95:
-           return Color.blue
+            return Color.blue
         default:
             return Color.purple
         }
@@ -88,8 +103,10 @@ struct WordRowView: View {
 
 #Preview {
     WordRowView(
-        wordModel: WordModel(word: ["English": "Apple", "German": "Apfel", "Russian": "Яблоко"], percentage: Int8.random(in: 1...100), tags: ["#tag"])
+        wordModel: WordModel(word: ["English": "Apple", "German": "Apfel", "Russian": "Яблоко"], percentage: Int8.random(in: 1...100), tags: ["#tag"]),
+        dictionary: DictionaryModel(name: "Sample Dictionary", languages: ["EN", "RU", "DE"], wordCount: 100)
     )
-        .environmentObject(Settings())
+    .environmentObject(Settings())
+    .modelContainer(for: [DictionaryModel.self])
 }
 

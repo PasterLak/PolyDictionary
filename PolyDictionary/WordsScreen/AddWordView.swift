@@ -7,9 +7,9 @@ struct AddWordView: View {
     @State private var selectedTags: [String] = []
     @State private var isTagSelectorPresented = false
     @Environment(\.dismiss) var dismiss
-
+    
     var onAddWord: (WordModel) -> Void
-
+    
     var body: some View {
         NavigationView {
             Form {
@@ -44,30 +44,42 @@ struct AddWordView: View {
                     dismiss()
                 },
                 trailing: Button(action: {
-                    let newWord = WordModel(word: wordTranslations, percentage: 0, tags: selectedTags)
+                    let newWord = WordModel(word: getTranslationsWithLanguageNames(wordTranslations: wordTranslations), percentage: 0, tags: selectedTags)
                     onAddWord(newWord)
                     dismiss()
                 }) {
                     Text("Add")
                 }
-                .disabled(areAllFieldsEmpty()) // Деактивация кнопки, если поля пустые
-                .foregroundColor(areAllFieldsEmpty() ? .gray : .blue)
+                .disabled(hasEmptyFields())
+                .foregroundColor(hasEmptyFields() ? .gray : .blue)
             )
             .sheet(isPresented: $isTagSelectorPresented) {
                 TagSelectorView(selectedTags: $selectedTags)
             }
         }
     }
-
-    // Проверяем, что все поля перевода пустые
-    private func areAllFieldsEmpty() -> Bool {
-        for (_, value) in wordTranslations {
-            if !value.isEmpty {
-                return false
+    
+    private func hasEmptyFields() -> Bool {
+        for language in dictionary.languages {
+            if wordTranslations[language]?.isEmpty ?? true {
+                return true
             }
         }
-        return true
+        return false
     }
+
+    
+    func getTranslationsWithLanguageNames(wordTranslations: [String: String]) -> [String: String] {
+        var translatedDictionary: [String: String] = [:]
+        
+        for (code, translation) in wordTranslations {
+            let languageName = Language.getLanguageByCode(code: code).name
+            translatedDictionary[languageName] = translation
+        }
+        
+        return translatedDictionary
+    }
+    
 }
 
 struct AddWordView_Previews: PreviewProvider {

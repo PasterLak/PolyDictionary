@@ -376,7 +376,7 @@
         }
       }
     },
-    "Maximum number of selected tags reached! \nYou can select up to %lld tags" : {
+    "Maximum number of selected tags reached!" : {
 
     },
     "My Dictionary" : {
@@ -418,6 +418,9 @@
           }
         }
       }
+    },
+    "OK" : {
+
     },
     "onboarding.description1" : {
       "extractionState" : "manual",
@@ -747,6 +750,9 @@
       }
     },
     "Word in %@" : {
+
+    },
+    "You can select up to %lld tags." : {
 
     }
   },

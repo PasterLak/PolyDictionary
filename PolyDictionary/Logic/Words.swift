@@ -4,16 +4,7 @@ public class Words {
     
     private static let tagsPool = ["nature", "technology", "food", "education", "transport", "art", "science", "emotion", "culture", "animals"]
     
-    public static func getRandomWord() -> (english: String, german: String, russian: String) {
-        guard !WordsDictionary.isEmpty else {
-            return ("No word", "Kein Wort", "Нет слова")
-        }
-        
-        let randomElement = WordsDictionary.randomElement()!
-        return (english: randomElement.word["English"] ?? "Unknown",
-                german: randomElement.word["German"] ?? "Unknown",
-                russian: randomElement.word["Russian"] ?? "Unknown")
-    }
+
     
     public static func getRandomWord0() -> String {
         guard !WordsDictionary.isEmpty else {

@@ -39,7 +39,7 @@ struct WordsView: View {
                 ScrollView {
                     LazyVStack {
                         ForEach(filteredWords) { wordItem in
-                            WordRowView(wordModel: wordItem)
+                            WordRowView(wordModel: wordItem, dictionary: dictionary)
                                 .padding(.horizontal)
                         }
                     }
