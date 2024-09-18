@@ -38,7 +38,31 @@ struct WordsView: View {
             ZStack {
                 ScrollView {
                     LazyVStack {
+                        
                         ForEach(filteredWords) { wordItem in
+                            
+                            /*NavigationLink(destination: WordsView(dictionary: dictionary)) {
+                                WordRowView(wordModel: wordItem, dictionary: dictionary)
+                                    .padding(.horizontal)
+                            }
+                            .buttonStyle(PlainButtonStyle())
+                            .swipeActions(edge: .trailing) {
+                                Button(role: .destructive) {
+                                    //dictionaryToDelete = dictionary
+                                   // showDeleteConfirmation = true
+                                } label: {
+                                    Label("Delete", systemImage: "trash")
+                                }
+                            }
+                            .swipeActions(edge: .leading) {
+                                Button {
+                                   // selectedDictionaryForEditing = dictionary
+                                   // showEditDictionarySheet = true
+                                } label: {
+                                    Label("Edit", systemImage: "pencil")
+                                }
+                                .tint(.blue)
+                            }*/
                             WordRowView(wordModel: wordItem, dictionary: dictionary)
                                 .padding(.horizontal)
                         }

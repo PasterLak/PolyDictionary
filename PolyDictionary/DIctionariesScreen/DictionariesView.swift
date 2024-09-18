@@ -92,9 +92,9 @@ struct DictionariesView: View {
     
     private func addDefaultDictionaries() {
         let defaultDictionaries = [
-            DictionaryModel(name: "Learning", languages: ["EN", "DE", "RU"], wordCount: Int16(Int.random( in: 10...500))),
-            DictionaryModel(name: "German-English Dictionary", languages: ["DE", "EN"], wordCount: Int16(Int.random( in: 10...500))),
-            DictionaryModel(name: "Latin languages", languages: ["ES", "IT", "PT"], wordCount: Int16(Int.random( in: 10...500)))
+            DictionaryModel(name: "Words to learn", languages: ["EN", "DE", "RU"], wordCount: Int16(Int.random( in: 10...800))),
+            //DictionaryModel(name: "German-English Dictionary", languages: ["DE", "EN"], wordCount: Int16(Int.random( in: 10...500))),
+           // DictionaryModel(name: "Latin languages", languages: ["ES", "IT", "PT"], wordCount: Int16(Int.random( in: 10...500)))
         ]
         
         for dictionary in defaultDictionaries {

@@ -146,6 +146,9 @@
         }
       }
     },
+    "Are you sure you want to delete this word?" : {
+
+    },
     "Available Tags" : {
       "localizations" : {
         "ru" : {
