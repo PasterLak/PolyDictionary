@@ -3,30 +3,23 @@ import SwiftUI
 struct WordRowView: View {
     
     let wordModel: WordModel
-    
     var dictionary: DictionaryModel
-    
     @EnvironmentObject var settings: Settings
-    
+    @State private var showDeleteConfirmation = false
+
     var body: some View {
         HStack {
             VStack(alignment: .leading) {
-                
                 Text(getFirstWordFromDictionary())
                     .font(.headline)
-                
-                
                 
                 Text(wordModel.getTranslationsWithFlags(for: dictionary.languages))
                     .font(.subheadline)
                     .foregroundColor(.gray)
                 
-                
                 Text(wordModel.getTagsAsString())
                     .font(.caption)
-                // rgb(236, 173, 21)
                     .foregroundColor(settings.isDarkMode ? .yellow : Color(red: 0.95, green: 0.6, blue: 0.1))
-                
             }
             Spacer()
             
@@ -47,12 +40,10 @@ struct WordRowView: View {
         }
         .padding(.vertical, 8)
         .onTapGesture {
-            
             print("Word tapped: \(wordModel.word)")
         }
         .swipeActions(edge: .leading) {
             Button(action: {
-                
                 print("Edit \(wordModel.word)")
             }) {
                 Label("Edit", systemImage: "pencil")
@@ -61,26 +52,23 @@ struct WordRowView: View {
         }
         .swipeActions(edge: .trailing) {
             Button(role: .destructive) {
-                
-                print("Delete \(wordModel.word)")
+                showDeleteConfirmation = true
             } label: {
                 Label("Delete", systemImage: "trash")
             }
         }
+        .confirmationDialog("Are you sure you want to delete this word?", isPresented: $showDeleteConfirmation, titleVisibility: .visible) {
+            Button("Delete", role: .destructive) {
+                deleteWord()
+            }
+            Button("Cancel", role: .cancel) { }
+        }
         .preferredColorScheme(settings.isDarkMode ? .dark : .light)
     }
     
-    func getFirstWordFromDictionary()-> String{
-        
+    func getFirstWordFromDictionary() -> String {
         let languageName = Language.getLanguageByCode(code: dictionary.languages[0]).name
-
-        if wordModel.word.contains(where: { $0.key == languageName }) {
-           
-            return wordModel.word[languageName] ?? "Error"
-        }
-       
-        return wordModel.word.first?.value ?? "Error"
-
+        return wordModel.word[languageName] ?? wordModel.word.first?.value ?? "Error"
     }
     
     func colorForPercentage(_ percentage: Int8) -> Color {
@@ -99,6 +87,11 @@ struct WordRowView: View {
             return Color.purple
         }
     }
+    
+    func deleteWord() {
+        print("Deleting word: \(wordModel.word)")
+        // Реализовать удаление из вашего массива слов
+    }
 }
 
 #Preview {
@@ -109,4 +102,3 @@ struct WordRowView: View {
     .environmentObject(Settings())
     .modelContainer(for: [DictionaryModel.self])
 }
-

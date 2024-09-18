@@ -7,7 +7,7 @@ struct RootView: View {
 
     var body: some View {
         SettingsView()
-            .id(languageManager.selectedLanguage) // Используем id для перезагрузки представления при смене языка
+            .id(languageManager.selectedLanguage)
     }
 }
 
@@ -46,7 +46,7 @@ struct SettingsView: View {
                 }
                 .contentShape(Rectangle())
                 .onTapGesture {
-                    settings.resetSettings()
+                    //settings.resetSettings()
                 }
             }
             

@@ -24,7 +24,12 @@ struct TagSelectorView: View {
         NavigationView {
             Form {
                 Section(header: Text("Add New Tag")) {
-                    TextField("#tag", text: $newTag)
+                    
+                    HStack {
+                        Text("#")
+                        TextField("tag", text: $newTag)
+                            .autocapitalization(.none)
+                    }
                     
                     HStack {
                         Text("Tag Color:")
@@ -44,12 +49,13 @@ struct TagSelectorView: View {
                         }
                     }
                     
-                    if !newTag.isEmpty {
+                  
+                    if !newTag.isEmpty  && newTag.first != "#" && validateTagName(newTag) != "" && !isTagAlreadyExists(validateTagName(newTag)) {
                         Button(action: {
                             if selectedTags.count < maxTags {
-                                let newTagObj = Tag(name: newTag, color: selectedColor)
+                                let newTagObj = Tag(name: validateTagName(newTag), color: selectedColor)
                                 availableTags.append(newTagObj)
-                                selectedTags.append(newTag)
+                                selectedTags.append(validateTagName(newTag))
                                 newTag = ""
                                 selectedColor = .yellow
                             } else {
@@ -65,7 +71,7 @@ struct TagSelectorView: View {
                 Section(header: Text("Available Tags")) {
                     ForEach(availableTags) { tag in
                         HStack {
-                            Text("#" + tag.name.lowercased())
+                            Text("#" + validateTagName(tag.name))
                                 .foregroundColor(getColor(tag.color))
                             Spacer()
                             if selectedTags.contains(tag.name) {
@@ -93,6 +99,30 @@ struct TagSelectorView: View {
         }
     }
     
+    // Валидация тега
+    private func validateTagName(_ name: String) -> String {
+        var validName = name.lowercased()
+        if validName.first == "#" {
+            validName.removeFirst()
+        }
+
+        if validName.count > 12 {
+            validName = String(validName.prefix(12))
+        }
+
+        let allowedCharacters = CharacterSet.alphanumerics.union(CharacterSet(charactersIn: "_-"))
+        if validName.rangeOfCharacter(from: allowedCharacters.inverted) != nil {
+            return "" // Возвращаем пустую строку, если есть недопустимые символы
+        }
+        
+        return validName
+    }
+
+    // Проверка, существует ли тег
+    private func isTagAlreadyExists(_ tag: String) -> Bool {
+        return availableTags.contains { $0.name.lowercased() == tag.lowercased() }
+    }
+
     private func handleTagSelection(tag: Tag) {
         if selectedTags.contains(tag.name) {
             selectedTags.removeAll(where: { $0 == tag.name })

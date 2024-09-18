@@ -4,7 +4,11 @@
     "\nPoly Dictionary" : {
 
     },
+    "#" : {
+
+    },
     "#tag" : {
+      "extractionState" : "stale",
       "localizations" : {
         "ru" : {
           "stringUnit" : {
@@ -668,6 +672,9 @@
           }
         }
       }
+    },
+    "tag" : {
+
     },
     "Tag Color:" : {
       "localizations" : {
