@@ -9,7 +9,8 @@ struct ContentView: View {
         ZStack {
             if showOnboarding {
                 OnboardingView(showOnboarding: $showOnboarding)
-                    .transition(.opacity)
+                    .transition(.asymmetric(insertion: .slide, removal: .move(edge: .leading)))
+                    .zIndex(1)
             } else {
                 TabView {
                     NavigationView {
@@ -30,12 +31,15 @@ struct ContentView: View {
                 }
                 .preferredColorScheme(settings.isDarkMode ? .dark : .light)
                 .modelContainer(for: [DictionaryModel.self])
-                .transition(.move(edge: .bottom))
+                .transition(.asymmetric(insertion: .move(edge: .trailing), removal: .slide))
+                .zIndex(0)
             }
         }
         .animation(.easeInOut(duration: 0.5), value: showOnboarding)
     }
 }
+
+
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {

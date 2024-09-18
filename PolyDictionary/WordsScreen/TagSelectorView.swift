@@ -78,11 +78,13 @@ struct TagSelectorView: View {
                                 Image(systemName: "checkmark")
                             }
                         }
+                        .contentShape(Rectangle()) 
                         .onTapGesture {
                             handleTagSelection(tag: tag)
                         }
                     }
                 }
+
             }
             .navigationBarTitle("Select Tags", displayMode: .inline)
             .navigationBarItems(

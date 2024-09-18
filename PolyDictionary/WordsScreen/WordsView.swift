@@ -10,22 +10,34 @@ struct WordsView: View {
     @State private var showingLearning = false
     @State private var showingSortOptions = false
     @State private var selectedSortOption: SortOption = .nameAscending
-
+    @State private var showAddedMessage = false  // Новое состояние для сообщения
+    
     @EnvironmentObject var settings: Settings
     
     @State private var searchText = ""
     
+    
+    
     var body: some View {
         VStack {
+            
             HStack {
                 Image(systemName: "magnifyingglass")
                     .padding(.leading)
-                TextField("Search", text: $searchText)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                    .padding(.horizontal)
-                    .onChange(of: searchText) { newValue in
-                        filterWords(searchText: newValue)
+               
+                    if showAddedMessage {
+                        WordAddedMessage()
                     }
+                    else
+                    {
+                        TextField("Search", text: $searchText)
+                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                            .padding(.horizontal)
+                            .onChange(of: searchText) { newValue in
+                                filterWords(searchText: newValue)
+                            }
+                    }
+
                 Button(action: {
                     showingSortOptions = true
                 }) {
@@ -35,34 +47,13 @@ struct WordsView: View {
             }
             .padding(.horizontal)
             
+            
+            
             ZStack {
+                
                 ScrollView {
                     LazyVStack {
-                        
                         ForEach(filteredWords) { wordItem in
-                            
-                            /*NavigationLink(destination: WordsView(dictionary: dictionary)) {
-                                WordRowView(wordModel: wordItem, dictionary: dictionary)
-                                    .padding(.horizontal)
-                            }
-                            .buttonStyle(PlainButtonStyle())
-                            .swipeActions(edge: .trailing) {
-                                Button(role: .destructive) {
-                                    //dictionaryToDelete = dictionary
-                                   // showDeleteConfirmation = true
-                                } label: {
-                                    Label("Delete", systemImage: "trash")
-                                }
-                            }
-                            .swipeActions(edge: .leading) {
-                                Button {
-                                   // selectedDictionaryForEditing = dictionary
-                                   // showEditDictionarySheet = true
-                                } label: {
-                                    Label("Edit", systemImage: "pencil")
-                                }
-                                .tint(.blue)
-                            }*/
                             WordRowView(wordModel: wordItem, dictionary: dictionary)
                                 .padding(.horizontal)
                         }
@@ -112,9 +103,10 @@ struct WordsView: View {
                                 words.append(newWord)
                                 filteredWords = words
                                 sortWords(option: selectedSortOption)
+                                showMessage()  // Показываем сообщение после добавления слова
                             }
                         }
-
+                        
                     }
                 }
             }
@@ -128,9 +120,19 @@ struct WordsView: View {
         }
     }
     
+    private func showMessage() {
+        showAddedMessage = true
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+            withAnimation {
+                showAddedMessage = false
+            }
+        }
+    }
+    
     private func filterWords(searchText: String) {
         let lowercasedSearchText = searchText.lowercased().trimmingCharacters(in: .whitespacesAndNewlines)
-
+        
         if lowercasedSearchText.isEmpty {
             filteredWords = words
             sortWords(option: selectedSortOption)
@@ -139,7 +141,7 @@ struct WordsView: View {
         } else if lowercasedSearchText.hasPrefix("#") {
             let components = lowercasedSearchText.split(separator: " ").map { String($0) }
             let tags = components.filter { $0.hasPrefix("#") }.map { $0.dropFirst() }
-
+            
             filteredWords = words.filter { word in
                 let wordTags = word.tags.map { $0.lowercased() }
                 return tags.allSatisfy { tag in
@@ -166,14 +168,14 @@ struct WordsView: View {
             }
         }
         
-      
+        
         sortWords(option: selectedSortOption)
     }
-
+    
     
     private func sortWords(option: SortOption) {
         let startTime = CFAbsoluteTimeGetCurrent()
-
+        
         selectedSortOption = option
         switch option {
         case .percentageAscending:
@@ -189,13 +191,13 @@ struct WordsView: View {
         case .dateAddedDescending:
             filteredWords.sort { $0.dateAdded > $1.dateAdded }
         }
-
+        
         let endTime = CFAbsoluteTimeGetCurrent()
         let timeElapsed = (endTime - startTime) * 1000.0
         print("Sorting took \(timeElapsed) ms")
     }
-
-
+    
+    
     private func saveSortOption() {
         UserDefaults.standard.set(selectedSortOption.rawValue, forKey: "selectedSortOption")
     }
