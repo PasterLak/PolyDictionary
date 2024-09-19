@@ -1,23 +1,19 @@
 import SwiftData
 import SwiftUI
 
-class DictionaryViewModel: ObservableObject {
+class WordViewModel: ObservableObject {
 
     // MARK: - Save Method
-    func saveDictionary(dictionary: Dictionary, context: ModelContext) {
-        context.insert(dictionary)
+    func saveWord(word: Word, context: ModelContext) {
+        context.insert(word)
         saveContext(context: context)
     }
 
     // MARK: - Update Method
-    func updateDictionary(dictionary: Dictionary, name: String, languages: [String], wordCount: Int16, context: ModelContext) {
-        dictionary.name = name
-        dictionary.languages = languages
-        dictionary.wordCount = wordCount
-        saveContext(context: context)
-    }
-    func updateDictionaryWords(dictionary: Dictionary,  context: ModelContext) {
-       
+    func updateDictionary(word: Word, name: String, languages: [String], wordCount: Int16, context: ModelContext) {
+        //dictionary.name = name
+       // dictionary.languages = languages
+       // dictionary.wordCount = wordCount
         saveContext(context: context)
     }
 
@@ -36,3 +32,4 @@ class DictionaryViewModel: ObservableObject {
         }
     }
 }
+

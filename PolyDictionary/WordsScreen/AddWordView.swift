@@ -2,13 +2,17 @@ import SwiftUI
 
 struct AddWordView: View {
     
-    var dictionary: DictionaryModel
+    @Environment(\.modelContext) private var modelContext
+    @StateObject private var viewModel = WordViewModel()
+    @StateObject private var dictionaryViewModel = DictionaryViewModel()
+    
+    var dictionary: Dictionary
     @State private var wordTranslations: [String: String] = [:]
     @State private var selectedTags: [String] = []
     @State private var isTagSelectorPresented = false
     @Environment(\.dismiss) var dismiss
     
-    var onAddWord: (WordModel) -> Void
+    var onAddWord: (Word) -> Void
     
     var body: some View {
         NavigationView {
@@ -44,8 +48,12 @@ struct AddWordView: View {
                     dismiss()
                 },
                 trailing: Button(action: {
-                    let newWord = WordModel(word: getTranslationsWithLanguageNames(wordTranslations: wordTranslations), percentage: 0, tags: selectedTags)
+                    let newWord = Word(word: getTranslationsWithLanguageNames(wordTranslations: wordTranslations), percentage: 0, tags: selectedTags)
                     onAddWord(newWord)
+                    
+                    dictionary.words.append(newWord)
+                    dictionaryViewModel.updateDictionaryWords(dictionary: dictionary, context: modelContext)
+                    
                     dismiss()
                 }) {
                     Text("Add")
@@ -85,12 +93,12 @@ struct AddWordView: View {
 struct AddWordView_Previews: PreviewProvider {
     static var previews: some View {
         AddWordView(
-            dictionary: DictionaryModel(name: "Sample Dictionary", languages: ["EN", "RU", "DE"], wordCount: 100),
+            dictionary: Dictionary(name: "Sample Dictionary", languages: ["EN", "RU", "DE"], wordCount: 100),
             onAddWord: { _ in }
         )
         .environmentObject(Settings())
         .environmentObject(LanguageManager())
-        .modelContainer(for: [DictionaryModel.self])
+        .modelContainer(for: [Dictionary.self, Word.self])
     }
 }
 

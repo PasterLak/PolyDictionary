@@ -2,10 +2,10 @@ import SwiftUI
 
 struct WordsView: View {
     
-    var dictionary: DictionaryModel
-    @State private var words: [WordModel] = []
+    var dictionary: Dictionary
+    @State private var words: [Word] = []
     
-    @State private var filteredWords: [WordModel] = []
+    @State private var filteredWords: [Word] = []
     @State private var isPresented: Bool = false
     @State private var showingLearning = false
     @State private var showingSortOptions = false
@@ -61,7 +61,8 @@ struct WordsView: View {
                 }
                 .onAppear {
                     loadSortOption()
-                    words = Words.WordsDictionary
+                    words = dictionary.words
+                    //Words.WordsDictionary
                     filteredWords = words
                     sortWords(option: selectedSortOption)
                 }

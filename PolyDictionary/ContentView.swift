@@ -30,7 +30,7 @@ struct ContentView: View {
                     }
                 }
                 .preferredColorScheme(settings.isDarkMode ? .dark : .light)
-                .modelContainer(for: [DictionaryModel.self])
+                .modelContainer(for: [Dictionary.self])
                 .transition(.asymmetric(insertion: .move(edge: .trailing), removal: .slide))
                 .zIndex(0)
             }
@@ -46,6 +46,6 @@ struct ContentView_Previews: PreviewProvider {
         ContentView()
             .environmentObject(Settings())
             .environmentObject(LanguageManager())
-            .modelContainer(for: [DictionaryModel.self])
+            .modelContainer(for: [Dictionary.self])
     }
 }

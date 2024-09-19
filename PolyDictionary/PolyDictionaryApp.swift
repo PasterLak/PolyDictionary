@@ -8,7 +8,7 @@ struct PolyDictionaryApp: App {
     
     var modelContainer: ModelContainer {
             do {
-                return try ModelContainer(for: DictionaryModel.self)
+                return try ModelContainer(for: Dictionary.self)
             } catch {
                 fatalError("Failed to create ModelContainer: \(error)")
             }
@@ -22,7 +22,7 @@ struct PolyDictionaryApp: App {
                 .environmentObject(settings)
                 .environment(\.locale, .init(identifier: languageManager.selectedLanguage)) 
                 .environmentObject(languageManager)
-                .modelContainer(for: [DictionaryModel.self])
+                .modelContainer(for: [Dictionary.self])
                 .modelContainer(modelContainer)
           
         }

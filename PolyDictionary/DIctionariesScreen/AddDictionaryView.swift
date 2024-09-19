@@ -67,7 +67,7 @@ struct AddDictionaryView: View {
     
     private func addDictionary() {
         let selectedLanguageCodes = selectedLanguages.map { $0.code }
-        let newDictionary = DictionaryModel(
+        let newDictionary = Dictionary(
             name: name,
             languages: selectedLanguageCodes,
             wordCount: 0
@@ -93,6 +93,6 @@ struct AddDictionaryView_Previews: PreviewProvider {
         AddDictionaryView()
             .environmentObject(Settings())
             .environmentObject(LanguageManager())
-            .modelContainer(for: [DictionaryModel.self])
+            .modelContainer(for: [Dictionary.self])
     }
 }

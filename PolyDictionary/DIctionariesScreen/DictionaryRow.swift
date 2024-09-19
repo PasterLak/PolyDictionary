@@ -2,7 +2,7 @@ import SwiftUI
 
 struct DictionaryRow: View {
     
-    var dictionary: DictionaryModel
+    var dictionary: Dictionary
     
     @EnvironmentObject var settings: Settings
     

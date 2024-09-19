@@ -13,7 +13,7 @@ struct StatsView: View {
     @EnvironmentObject var settings: Settings
     @Environment(\.modelContext) private var modelContext
     
-    @Query private var dictionaries: [DictionaryModel]
+    @Query private var dictionaries: [Dictionary]
     
     var totalWords: Int {
             dictionaries.reduce(0) { $0 + Int($1.wordCount) }
@@ -104,7 +104,7 @@ struct StatsView_Previews: PreviewProvider {
         StatsView()
             .environmentObject(Settings())
             .environmentObject(LanguageManager())
-            .modelContainer(for: [DictionaryModel.self])
+            .modelContainer(for: [Dictionary.self])
     }
 }
 

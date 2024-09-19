@@ -2,8 +2,8 @@ import SwiftUI
 
 struct WordRowView: View {
     
-    let wordModel: WordModel
-    var dictionary: DictionaryModel
+    let wordModel: Word
+    var dictionary: Dictionary
     @EnvironmentObject var settings: Settings
     @State private var showDeleteConfirmation = false
 
@@ -96,9 +96,9 @@ struct WordRowView: View {
 
 #Preview {
     WordRowView(
-        wordModel: WordModel(word: ["English": "Apple", "German": "Apfel", "Russian": "Яблоко"], percentage: Int8.random(in: 1...100), tags: ["#tag"]),
-        dictionary: DictionaryModel(name: "Sample Dictionary", languages: ["EN", "RU", "DE"], wordCount: 100)
+        wordModel: Word(word: ["English": "Apple", "German": "Apfel", "Russian": "Яблоко"], percentage: Int8.random(in: 1...100), tags: ["#tag"]),
+        dictionary: Dictionary(name: "Sample Dictionary", languages: ["EN", "RU", "DE"], wordCount: 100)
     )
     .environmentObject(Settings())
-    .modelContainer(for: [DictionaryModel.self])
+    .modelContainer(for: [Dictionary.self])
 }
