@@ -46,6 +46,6 @@ struct ContentView_Previews: PreviewProvider {
         ContentView()
             .environmentObject(Settings())
             .environmentObject(LanguageManager())
-            .modelContainer(for: [Dictionary.self])
+            .modelContainer(for: [Dictionary.self, Tag.self])
     }
 }

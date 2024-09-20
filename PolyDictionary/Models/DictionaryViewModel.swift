@@ -3,6 +3,13 @@ import SwiftUI
 
 class DictionaryViewModel: ObservableObject {
 
+    static let shared = DictionaryViewModel()
+    
+    private init() {
+           
+            print("DictionaryViewModel Singleton initialized!")
+        }
+    
     // MARK: - Save Method
     func saveDictionary(dictionary: Dictionary, context: ModelContext) {
         context.insert(dictionary)

@@ -16,7 +16,7 @@ public class Settings: ObservableObject {
     }
     
     init() {
-        
+       
         self.isDarkMode = UserDefaults.standard.object(forKey: "isDarkMode") as? Bool ?? false
         self.useFaceId = UserDefaults.standard.object(forKey: "useFaceId") as? Bool ?? false
     }

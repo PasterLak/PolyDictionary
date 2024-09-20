@@ -4,6 +4,7 @@ struct WordRowView: View {
     
     let wordModel: Word
     var dictionary: Dictionary
+    
     @EnvironmentObject var settings: Settings
     @State private var showDeleteConfirmation = false
 

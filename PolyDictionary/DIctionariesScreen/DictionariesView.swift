@@ -3,7 +3,7 @@ import SwiftData
 
 struct DictionariesView: View {
     @Environment(\.modelContext) private var modelContext
-    @StateObject private var viewModel = DictionaryViewModel()
+   
     @EnvironmentObject var settings: Settings
     
     @Query private var dictionaries: [Dictionary]
@@ -72,7 +72,7 @@ struct DictionariesView: View {
         .alert("Delete Dictionary", isPresented: $showDeleteConfirmation, presenting: dictionaryToDelete) { dict in
             Button("Delete", role: .destructive) {
                 if let dictionary = dictionaryToDelete {
-                    viewModel.deleteDictionary(dictionary: dictionary, context: modelContext)
+                    DictionaryViewModel.shared.deleteDictionary(dictionary: dictionary, context: modelContext)
                 }
             }
             Button("Cancel", role: .cancel) { }
@@ -82,7 +82,7 @@ struct DictionariesView: View {
         .onAppear {
             
             if dictionaries.isEmpty {
-                addDefaultDictionaries()
+                //addDefaultDictionaries()
             }
         }
         

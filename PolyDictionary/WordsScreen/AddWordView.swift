@@ -4,7 +4,7 @@ struct AddWordView: View {
     
     @Environment(\.modelContext) private var modelContext
     @StateObject private var viewModel = WordViewModel()
-    @StateObject private var dictionaryViewModel = DictionaryViewModel()
+    //@StateObject private var dictionaryViewModel = DictionaryViewModel()
     
     var dictionary: Dictionary
     @State private var wordTranslations: [String: String] = [:]
@@ -51,8 +51,9 @@ struct AddWordView: View {
                     let newWord = Word(word: getTranslationsWithLanguageNames(wordTranslations: wordTranslations), percentage: 0, tags: selectedTags)
                     onAddWord(newWord)
                     
+                    dictionary.wordCount += 1
                     dictionary.words.append(newWord)
-                    dictionaryViewModel.updateDictionaryWords(dictionary: dictionary, context: modelContext)
+                    DictionaryViewModel.shared.updateDictionaryWords(dictionary: dictionary, context: modelContext)
                     
                     dismiss()
                 }) {
