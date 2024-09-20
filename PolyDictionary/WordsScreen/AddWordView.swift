@@ -8,16 +8,15 @@ struct AddWordView: View {
     @State private var selectedTags: [String]
     @State private var isTagSelectorPresented = false
 
-    var dictionary: Dictionary
+    @Bindable var dictionary: Dictionary
     var editingWord: Word?
     var onSave: (Word) -> Void
 
     init(dictionary: Dictionary, editingWord: Word? = nil, onSave: @escaping (Word) -> Void) {
-        self.dictionary = dictionary
+        self._dictionary = Bindable(dictionary)
         self.editingWord = editingWord
         self.onSave = onSave
 
-        // Initialize state variables with existing word data if editing
         _wordTranslations = State(initialValue: editingWord?.word ?? [:])
         _selectedTags = State(initialValue: editingWord?.tags ?? [])
     }
@@ -76,12 +75,10 @@ struct AddWordView: View {
         )
 
         if let editingWord = editingWord {
-            // Update existing word
             if let index = dictionary.words.firstIndex(where: { $0.id == editingWord.id }) {
                 dictionary.words[index] = newWord
             }
         } else {
-            // Add new word
             dictionary.wordCount += 1
             dictionary.words.append(newWord)
         }
@@ -101,6 +98,7 @@ struct AddWordView: View {
         return false
     }
 }
+
 
 
 

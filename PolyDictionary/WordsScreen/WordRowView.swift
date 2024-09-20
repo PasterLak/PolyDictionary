@@ -1,13 +1,12 @@
 import SwiftUI
 
 struct WordRowView: View {
-     let wordModel: Word
-    var dictionary: Dictionary
+    let wordModel: Word
+    @Bindable var dictionary: Dictionary
 
     @Environment(\.modelContext) private var modelContext
     @EnvironmentObject var settings: Settings
 
-    @State private var showDeleteConfirmation = false
     @State private var isEditViewPresented = false
 
     var body: some View {
@@ -49,13 +48,15 @@ struct WordRowView: View {
         }
         .sheet(isPresented: $isEditViewPresented) {
             AddWordView(dictionary: dictionary, editingWord: wordModel, onSave: { updatedWord in
-                // Handle the updated word if needed
+                // No additional action needed
             })
         }
         .swipeActions(edge: .trailing) {
             Button(role: .destructive) {
-                dictionary.wordCount -= 1
-                modelContext.delete(wordModel)
+                if let index = dictionary.words.firstIndex(where: { $0.id == wordModel.id }) {
+                    dictionary.words.remove(at: index)
+                    dictionary.wordCount -= 1
+                }
                 try? modelContext.save()
             } label: {
                 Label("Delete", systemImage: "trash")
@@ -70,6 +71,7 @@ struct WordRowView: View {
             .tint(.blue)
         }
     }
+
 
     func getFirstWordFromDictionary() -> String {
         let languageName = Language.getLanguageByCode(code: dictionary.languages[0]).name
@@ -93,6 +95,7 @@ struct WordRowView: View {
         }
     }
 }
+
 
 
 #Preview {
