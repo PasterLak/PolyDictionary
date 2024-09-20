@@ -7,7 +7,7 @@ class DictionaryViewModel: ObservableObject {
     
     private init() {
            
-            print("DictionaryViewModel Singleton initialized!")
+            //print("DictionaryViewModel Singleton initialized!")
         }
     
     // MARK: - Save Method

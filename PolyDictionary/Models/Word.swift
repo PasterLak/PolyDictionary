@@ -4,11 +4,12 @@ import SwiftUI
 
 @Model
 public class Word: Identifiable {
-    public var id: UUID
-    public var word: [String: String]
-    public var percentage: Int8
-    public var tags: [String]
-    public var dateAdded: Date
+    
+     public var id: UUID
+     var word: [String: String]
+     var percentage: Int8
+     var tags: [String]
+     var dateAdded: Date
 
     public init(word: [String: String], percentage: Int8, tags: [String], dateAdded: Date = Date()) {
         self.id = UUID()

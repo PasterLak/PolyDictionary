@@ -4,7 +4,7 @@ import SwiftData
 @Model
 final class Tag: Identifiable
 {
-   // let id = UUID()
+    
     @Attribute(.unique) var id: String = UUID().uuidString
     var name: String
     private var colorEnum: TagColor
@@ -22,11 +22,11 @@ final class Tag: Identifiable
     }
     
     public var color: Color {
-            return colorEnum.color
-        }
+        return colorEnum.color
+    }
     
     
-
+    
 }
 
 

@@ -3,7 +3,7 @@ import SwiftData
 
 struct ContentView: View {
     
-    @Environment(\.modelContext) private var modelContext
+    //@Environment(\.modelContext) private var modelContext
     @EnvironmentObject var settings: Settings
     
     @State private var showOnboarding = false
@@ -11,8 +11,18 @@ struct ContentView: View {
    
     init()
     {
-        //modelContext.container.deleteAllData()
+        //modelContext.
+        //modelContext.container.
        // try? modelContext.save()
+        return
+        do {
+           // try modelContext.delete(model: DictionaryModel.self)
+            //try modelContext.delete(model: Word.self)
+            //try modelContext.delete(model: Tag.self)
+            print("Deleted")
+        } catch {
+            print("Failed to clear all  data.")
+        }
     }
  
 
@@ -50,7 +60,13 @@ struct ContentView: View {
     }
 }
 
-
+#Preview("Main") {
+    ContentView()
+        .environmentObject(Settings())
+        .environmentObject(LanguageManager())
+        .modelContainer(for: [DictionaryModel.self, Tag.self, Word.self])
+}
+/*
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
@@ -59,5 +75,5 @@ struct ContentView_Previews: PreviewProvider {
             .modelContainer(for: [DictionaryModel.self, Tag.self, Word.self])
     }
 }
-
+*/
 

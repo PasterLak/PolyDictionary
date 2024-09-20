@@ -11,10 +11,14 @@ struct PolyDictionaryApp: App {
     
 
     
-   /* public var GlobalContainer: ModelContainer {
+   public var GlobalContainer: ModelContainer {
         do {
+            
+           // var c = try ModelContainer(for: DictionaryModel.self, Tag.self, Word.self)
+            
+           // c.deleteAllData()
             //resetDatabase();
-            return try ModelContainer(for: Dictionary.self, Tag.self, Word.self)
+            return try ModelContainer(for: DictionaryModel.self, Tag.self, Word.self)
         } catch {
             fatalError("Failed to create ModelContainer: \(error)")
         }
@@ -22,8 +26,8 @@ struct PolyDictionaryApp: App {
    
     init()
     {
-        GlobalContainer.deleteAllData()
-    }*/
+       // GlobalContainer.deleteAllData()
+    }
     var body: some Scene {
         
         
@@ -33,10 +37,11 @@ struct PolyDictionaryApp: App {
                 .environmentObject(settings)
                 .environment(\.locale, .init(identifier: languageManager.selectedLanguage)) 
                 .environmentObject(languageManager)
-                .modelContainer(for: [DictionaryModel.self, Tag.self, Word.self])
-                //.modelContainer(modelContainer)
+                //.modelContainer(for: [DictionaryModel.self, Word.self, Tag.self])
+                .modelContainer(GlobalContainer)
           
         }
     }
 }
+
 
