@@ -1,38 +1,41 @@
 import SwiftUI
 
 struct AddWordView: View {
-    
     @Environment(\.modelContext) private var modelContext
-    @StateObject private var viewModel = WordViewModel()
-    //@StateObject private var dictionaryViewModel = DictionaryViewModel()
-    
-    var dictionary: Dictionary
-    @State private var wordTranslations: [String: String] = [:]
-    @State private var selectedTags: [String] = []
-    @State private var isTagSelectorPresented = false
     @Environment(\.dismiss) var dismiss
-    
-    var onAddWord: (Word) -> Void
-    
-    public func setEditData(word: Word)
-    {
-        selectedTags = word.tags
-        wordTranslations = word.word
+
+    @State private var wordTranslations: [String: String]
+    @State private var selectedTags: [String]
+    @State private var isTagSelectorPresented = false
+
+    var dictionary: Dictionary
+    var editingWord: Word?
+    var onSave: (Word) -> Void
+
+    init(dictionary: Dictionary, editingWord: Word? = nil, onSave: @escaping (Word) -> Void) {
+        self.dictionary = dictionary
+        self.editingWord = editingWord
+        self.onSave = onSave
+
+        // Initialize state variables with existing word data if editing
+        _wordTranslations = State(initialValue: editingWord?.word ?? [:])
+        _selectedTags = State(initialValue: editingWord?.tags ?? [])
     }
-    
+
     var body: some View {
         NavigationView {
             Form {
                 Section(header: Text("Translations")) {
-                    ForEach(dictionary.languages, id: \.self) { language in
-                        TextField("Word in \(Language.getLanguageByCode(code: language).name)", text: Binding(
-                            get: { wordTranslations[language] ?? "" },
-                            set: { wordTranslations[language] = $0 }
+                    ForEach(dictionary.languages, id: \.self) { languageCode in
+                        let languageName = Language.getLanguageByCode(code: languageCode).name
+                        TextField("Word in \(languageName)", text: Binding(
+                            get: { wordTranslations[languageName] ?? "" },
+                            set: { wordTranslations[languageName] = $0 }
                         ))
                         .autocapitalization(.none)
                     }
                 }
-                
+
                 Section(header: Text("Tags")) {
                     HStack {
                         Text("Selected Tags:")
@@ -48,22 +51,13 @@ struct AddWordView: View {
                     }
                 }
             }
-            .navigationBarTitle("Add New Word", displayMode: .inline)
+            .navigationBarTitle(editingWord == nil ? "Add New Word" : "Edit Word", displayMode: .inline)
             .navigationBarItems(
                 leading: Button("Close") {
                     dismiss()
                 },
-                trailing: Button(action: {
-                    let newWord = Word(word: getTranslationsWithLanguageNames(wordTranslations: wordTranslations), percentage: Int8.random(in: 0...100), tags: selectedTags)
-                    onAddWord(newWord)
-                    
-                    dictionary.wordCount += 1
-                    dictionary.words.append(newWord)
-                    DictionaryViewModel.shared.updateDictionaryWords(dictionary: dictionary, context: modelContext)
-                    
-                    dismiss()
-                }) {
-                    Text("Add")
+                trailing: Button(action: saveWord) {
+                    Text(editingWord == nil ? "Add" : "Save")
                 }
                 .disabled(hasEmptyFields())
                 .foregroundColor(hasEmptyFields() ? .gray : .blue)
@@ -73,35 +67,48 @@ struct AddWordView: View {
             }
         }
     }
-    
+
+    private func saveWord() {
+        let newWord = Word(
+            word: wordTranslations,
+            percentage: editingWord?.percentage ?? Int8.random(in: 0...100),
+            tags: selectedTags
+        )
+
+        if let editingWord = editingWord {
+            // Update existing word
+            if let index = dictionary.words.firstIndex(where: { $0.id == editingWord.id }) {
+                dictionary.words[index] = newWord
+            }
+        } else {
+            // Add new word
+            dictionary.wordCount += 1
+            dictionary.words.append(newWord)
+        }
+
+        DictionaryViewModel.shared.updateDictionaryWords(dictionary: dictionary, context: modelContext)
+        onSave(newWord)
+        dismiss()
+    }
+
     private func hasEmptyFields() -> Bool {
-        for language in dictionary.languages {
-            if wordTranslations[language]?.isEmpty ?? true {
+        for languageCode in dictionary.languages {
+            let languageName = Language.getLanguageByCode(code: languageCode).name
+            if wordTranslations[languageName]?.isEmpty ?? true {
                 return true
             }
         }
         return false
     }
-
-    
-    func getTranslationsWithLanguageNames(wordTranslations: [String: String]) -> [String: String] {
-        var translatedDictionary: [String: String] = [:]
-        
-        for (code, translation) in wordTranslations {
-            let languageName = Language.getLanguageByCode(code: code).name
-            translatedDictionary[languageName] = translation
-        }
-        
-        return translatedDictionary
-    }
-    
 }
+
+
 
 struct AddWordView_Previews: PreviewProvider {
     static var previews: some View {
         AddWordView(
             dictionary: Dictionary(name: "Sample Dictionary", languages: ["EN", "RU", "DE"], wordCount: 100),
-            onAddWord: { _ in }
+            onSave: { _ in }
         )
         .environmentObject(Settings())
         .environmentObject(LanguageManager())

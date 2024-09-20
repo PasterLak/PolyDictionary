@@ -1,40 +1,34 @@
 import SwiftUI
 
 struct WordRowView: View {
-    
-    let wordModel: Word
+     let wordModel: Word
     var dictionary: Dictionary
-    
+
     @Environment(\.modelContext) private var modelContext
-    
     @EnvironmentObject var settings: Settings
+
     @State private var showDeleteConfirmation = false
-    
+    @State private var isEditViewPresented = false
+
     var body: some View {
-        
-        
         Button(action: {
-          
-           // AddWordView(dictionary: dictionary, onAddWord: { _ in }).setEditData(word: wordModel)
-            //print("Word tapped: \(wordModel.word)")
+            isEditViewPresented = true
         }) {
-            
-            
-            HStack{
+            HStack {
                 VStack(alignment: .leading) {
                     Text(getFirstWordFromDictionary())
                         .font(.headline)
-                    
+
                     Text(wordModel.getTranslationsWithFlags(for: dictionary.languages))
                         .font(.subheadline)
                         .foregroundColor(.gray)
-                    
+
                     Text(wordModel.getTagsAsString())
                         .font(.caption)
                         .foregroundColor(settings.isDarkMode ? .yellow : Color(red: 0.95, green: 0.6, blue: 0.1))
                 }
                 Spacer()
-                
+
                 ZStack {
                     Circle()
                         .stroke(colorForPercentage(wordModel.percentage), lineWidth: wordModel.percentage < 100 ? 2 : 0)
@@ -49,41 +43,39 @@ struct WordRowView: View {
                             .foregroundColor(.green)
                     }
                 }
-            } // HStack
+            }
             .foregroundColor(settings.isDarkMode ? .white : .black)
             .preferredColorScheme(settings.isDarkMode ? .dark : .light)
-            
+        }
+        .sheet(isPresented: $isEditViewPresented) {
+            AddWordView(dictionary: dictionary, editingWord: wordModel, onSave: { updatedWord in
+                // Handle the updated word if needed
+            })
         }
         .swipeActions(edge: .trailing) {
             Button(role: .destructive) {
-                // dictionaryToDelete = dictionary
-                // showDeleteConfirmation = true
                 dictionary.wordCount -= 1
                 modelContext.delete(wordModel)
                 try? modelContext.save()
-                
             } label: {
                 Label("Delete", systemImage: "trash")
             }
         }
         .swipeActions(edge: .leading) {
             Button {
-                // selectedDictionaryForEditing = dictionary
-                // showEditDictionarySheet = true
+                isEditViewPresented = true
             } label: {
                 Label("Edit", systemImage: "pencil")
             }
             .tint(.blue)
         }
-
     }
-   
-    
+
     func getFirstWordFromDictionary() -> String {
         let languageName = Language.getLanguageByCode(code: dictionary.languages[0]).name
         return wordModel.word[languageName] ?? wordModel.word.first?.value ?? "Error"
     }
-    
+
     func colorForPercentage(_ percentage: Int8) -> Color {
         switch percentage {
         case ..<20:
@@ -100,12 +92,8 @@ struct WordRowView: View {
             return Color.purple
         }
     }
-    
-    func deleteWord() {
-        print("Deleting word: \(wordModel.word)")
-        // Реализовать удаление из вашего массива слов
-    }
 }
+
 
 #Preview {
     WordRowView(

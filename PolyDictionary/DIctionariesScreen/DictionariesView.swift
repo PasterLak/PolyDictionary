@@ -13,7 +13,7 @@ struct DictionariesView: View {
     @State private var dictionaryToDelete: Dictionary?
     @State private var showDeleteConfirmation = false
     @State private var selectedDictionaryForEditing: Dictionary?
-    @State private var showEditDictionarySheet = false
+    //@State private var showEditDictionarySheet = false
     
     var body: some View {
         List {
@@ -34,7 +34,7 @@ struct DictionariesView: View {
                 .swipeActions(edge: .leading) {
                     Button {
                         selectedDictionaryForEditing = dictionary
-                        showEditDictionarySheet = true
+                       // showEditDictionarySheet = true
                     } label: {
                         Label("Edit", systemImage: "pencil")
                     }

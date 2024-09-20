@@ -9,7 +9,7 @@ final class Dictionary: Identifiable, Equatable {
     var name: String
     var languages: [String] // EN
     var wordCount: Int16
-    var words: [Word]
+     var words: [Word]
     
     
     init(id: String = UUID().uuidString, name: String, languages: [String], wordCount: Int16) {
