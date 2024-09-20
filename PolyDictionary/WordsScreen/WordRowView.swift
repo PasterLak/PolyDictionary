@@ -13,7 +13,7 @@ struct WordRowView: View {
         Button(action: {
             isEditViewPresented = true
         }) {
-            HStack {
+            HStack() {
                 VStack(alignment: .leading) {
                     Text(getFirstWordFromDictionary())
                         .font(.headline)
