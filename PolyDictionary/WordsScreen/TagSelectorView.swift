@@ -7,11 +7,10 @@ struct TagSelectorView: View {
     
     @Query private var tags: [Tag]
     
-    @Binding var selectedTags: [String]
+    @Binding var selectedTags: [Tag]
     @EnvironmentObject var settings: Settings
     @State private var newTag: String = ""
     @State private var hideTagFromOtherDictionaries: Bool = false
-    //@State private var availableTags: [Tag] = TagsGlobal.shared._tags.wrappedValue
     @State private var selectedColor: Color = .yellow
     @State private var showMaxTagAlert: Bool = false
     @Environment(\.dismiss) var dismiss
@@ -28,7 +27,6 @@ struct TagSelectorView: View {
                         TextField("tag", text: $newTag)
                             .autocapitalization(.none)
                     }
-                    
                     
                     HStack {
                         Text("Tag Color:")
@@ -49,7 +47,6 @@ struct TagSelectorView: View {
                     }
                     Toggle(isOn: $hideTagFromOtherDictionaries) {
                         Text("Hide from other dictionaries")
-                        
                     }.toggleStyle(SwitchToggleStyle(tint: .green))
                     
                     if !newTag.isEmpty  && newTag.first != "#" && validateTagName(newTag) != "" && !isTagAlreadyExists(validateTagName(newTag)) {
@@ -57,25 +54,17 @@ struct TagSelectorView: View {
                             if selectedTags.count < maxTags {
                                 
                                 let newTagObj = Tag(name: validateTagName(newTag), color: TagColor.fromColor(selectedColor), isGlobal: hideTagFromOtherDictionaries)
-                               
-                                //tags.append(newTagObj)
-                                //tags.
-                                selectedTags.append(validateTagName(newTag))
                                 
-                               // if !hideTagFromOtherDictionaries
-                               // {
-                                   
-                                    modelContext.insert(newTagObj)
-                                   
-                                    do {
-                                        try modelContext.save()
-                                    } catch {
-                                        print("Error: \(error.localizedDescription)")
-                                    }
+                                selectedTags.append(newTagObj) // Add the new Tag object to selectedTags
+                                
+                                modelContext.insert(newTagObj)
+                             
+                                do {
+                                    try modelContext.save()
+                                } catch {
+                                    print("Error: \(error.localizedDescription)")
+                                }
 
-                                    
-                                //}
-                                
                                 newTag = ""
                                 selectedColor = .yellow
                             } else {
@@ -94,26 +83,22 @@ struct TagSelectorView: View {
                             Text("#" + validateTagName(tag.name))
                                 .foregroundColor(getColor(tag.color))
                             Spacer()
-                            if selectedTags.contains(tag.name) {
+                            if selectedTags.contains(where: { $0.id == tag.id }) {
                                 Image(systemName: "checkmark")
                             }
                         }
                         .contentShape(Rectangle())
                         .swipeActions(edge: .trailing) {
                             Button(role: .destructive) {
-                               
-                              
-                               modelContext.delete(tag)
-                               try? modelContext.save()
-                                
+                                modelContext.delete(tag)
+                                try? modelContext.save()
                             } label: {
                                 Label("Delete", systemImage: "trash")
                             }
                         }
                         .swipeActions(edge: .leading) {
                             Button {
-                                // selectedDictionaryForEditing = dictionary
-                                // showEditDictionarySheet = true
+                                // Handle edit tag
                             } label: {
                                 Label("Edit", systemImage: "pencil")
                             }
@@ -123,9 +108,7 @@ struct TagSelectorView: View {
                             handleTagSelection(tag: tag)
                         }
                     }
-                       
                 }
-                
             }
             .navigationBarTitle("Select Tags", displayMode: .inline)
             .navigationBarItems(
@@ -141,11 +124,9 @@ struct TagSelectorView: View {
             }
         }
         .onAppear {
-            print("Теги: \(tags)")
+            print("Tags: \(tags)")
         }
-
     }
-    
     
     private func validateTagName(_ name: String) -> String {
         var validName = name.lowercased()
@@ -170,10 +151,10 @@ struct TagSelectorView: View {
     }
     
     private func handleTagSelection(tag: Tag) {
-        if selectedTags.contains(tag.name) {
-            selectedTags.removeAll(where: { $0 == tag.name })
+        if let index = selectedTags.firstIndex(where: { $0.id == tag.id }) {
+            selectedTags.remove(at: index)
         } else if selectedTags.count < maxTags {
-            selectedTags.append(tag.name)
+            selectedTags.append(tag)
         } else {
             showMaxTagAlert = true
         }
@@ -188,7 +169,7 @@ struct TagSelectorView: View {
 }
 
 struct TagSelectorView_Previews: PreviewProvider {
-    @State static var selectedTags: [String] = []
+    @State static var selectedTags: [Tag] = []
     
     static var previews: some View {
         NavigationView {

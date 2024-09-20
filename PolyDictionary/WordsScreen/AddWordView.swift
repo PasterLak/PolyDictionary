@@ -5,7 +5,7 @@ struct AddWordView: View {
     @Environment(\.dismiss) var dismiss
 
     @State private var wordTranslations: [String: String]
-    @State private var selectedTags: [String]
+    @State private var selectedTags: [Tag]
     @State private var isTagSelectorPresented = false
 
     @Bindable var dictionary: DictionaryModel
@@ -39,8 +39,9 @@ struct AddWordView: View {
                     HStack {
                         Text("Selected Tags:")
                         Spacer()
-                        Text(selectedTags.joined(separator: ", "))
+                        Text(selectedTags.map { $0.name }.joined(separator: ", "))
                             .foregroundColor(.gray)
+
                     }
                     Button(action: {
                         isTagSelectorPresented = true
@@ -70,9 +71,11 @@ struct AddWordView: View {
     private func saveWord() {
         let newWord = Word(
             word: wordTranslations,
-            percentage: editingWord?.percentage ?? Int8.random(in: 0...100),
-            tags: selectedTags
+            percentage: editingWord?.percentage ?? Int8.random(in: 0...100)
+            //tags: selectedTags
         )
+        // !!!!!
+        newWord.tags = selectedTags
 
         if let editingWord = editingWord {
             if let index = dictionary.words.firstIndex(where: { $0.id == editingWord.id }) {

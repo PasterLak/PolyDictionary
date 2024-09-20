@@ -8,19 +8,19 @@ public class Word: Identifiable {
      public var id: UUID
      var word: [String: String]
      var percentage: Int8
-     var tags: [String]
+     var tags: [Tag]
      var dateAdded: Date
 
-    public init(word: [String: String], percentage: Int8, tags: [String], dateAdded: Date = Date()) {
+    public init(word: [String: String], percentage: Int8, dateAdded: Date = Date()) {
         self.id = UUID()
         self.word = word
         self.percentage = percentage
-        self.tags = tags
+        self.tags = []
         self.dateAdded = dateAdded
     }
 
     public func getTagsAsString() -> String {
-        return tags.map { "#\($0)" }.joined(separator: ", ")
+        return tags.map { "#\($0.name)" }.joined(separator: ", ")
     }
 
     public func getTranslationsWithFlags(for languages: [String]) -> String {
@@ -41,7 +41,7 @@ public class Word: Identifiable {
 
     public func toString() -> String {
         let wordTranslations = word.map { "\($0.key): \($0.value)" }.joined(separator: ", ")
-        let tagsString = tags.joined(separator: ", ")
+        //let tagsString = tags.joined(separator: ", ") tags.
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .medium
         let dateString = dateFormatter.string(from: dateAdded)
@@ -50,7 +50,7 @@ public class Word: Identifiable {
         WordModel:
         - Translations: [\(wordTranslations)]
         - Percentage: \(percentage)%
-        - Tags: [\(tagsString)]
+        - Tags: [\("tagsString")]
         - Date Added: \(dateString)
         """
     }

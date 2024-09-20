@@ -3,12 +3,12 @@ import SwiftUI
 struct WordRowView: View {
     let wordModel: Word
     @Bindable var dictionary: DictionaryModel
-
+    
     @Environment(\.modelContext) private var modelContext
     @EnvironmentObject var settings: Settings
-
+    
     @State private var isEditViewPresented = false
-
+    
     var body: some View {
         Button(action: {
             isEditViewPresented = true
@@ -17,17 +17,26 @@ struct WordRowView: View {
                 VStack(alignment: .leading) {
                     Text(getFirstWordFromDictionary())
                         .font(.headline)
-
+                    
                     Text(wordModel.getTranslationsWithFlags(for: dictionary.languages))
                         .font(.subheadline)
                         .foregroundColor(.gray)
-
-                    Text(wordModel.getTagsAsString())
+                    
+                    HStack {
+                        ForEach(wordModel.tags, id: \.id) { tag in
+                            Text("#\(tag.name)")
+                                .font(.caption)
+                                .foregroundColor(tag.color)
+                                //.padding(.horizontal, 2) // optional padding to space tags
+                        }
+                        Spacer()
+                    }
+                   /* Text(wordModel.getTagsAsString())
                         .font(.caption)
-                        .foregroundColor(settings.isDarkMode ? .yellow : Color(red: 0.95, green: 0.6, blue: 0.1))
+                        .foregroundColor(settings.isDarkMode ? .yellow : Color(red: 0.95, green: 0.6, blue: 0.1))*/
                 }
                 Spacer()
-
+                
                 ZStack {
                     Circle()
                         .stroke(colorForPercentage(wordModel.percentage), lineWidth: wordModel.percentage < 100 ? 2 : 0)
@@ -71,13 +80,13 @@ struct WordRowView: View {
             .tint(.blue)
         }
     }
-
-
+    
+    
     func getFirstWordFromDictionary() -> String {
         let languageName = Language.getLanguageByCode(code: dictionary.languages[0]).name
         return wordModel.word[languageName] ?? wordModel.word.first?.value ?? "Error"
     }
-
+    
     func colorForPercentage(_ percentage: Int8) -> Color {
         switch percentage {
         case ..<20:
@@ -96,13 +105,30 @@ struct WordRowView: View {
     }
 }
 
+/*
+struct WordRowView_Previews: PreviewProvider {
+    
+    
+    static var previews: some View {
+        
+       
+        var tags: [Tag] = [
+            Tag(name: "test", color: TagColor.blue, isGlobal: true),
+            Tag(name: "food", color: TagColor.yellow, isGlobal: true)
+        ]
+        
+        // Ensure the `Word` model is properly initialized with the necessary data
+        var word: Word = Word(word: ["English": "Apple", "German": "Apfel", "Russian": "Яблоко"], percentage: Int8.random(in: 1...100))
+        
+        // Assign the tags to the word
+         word.tags = tags
+        
+         return WordRowView(
+            wordModel: word,
+            dictionary: DictionaryModel(name: "Sample Dictionary", languages: ["EN", "RU", "DE"], wordCount: 100)
+        )
+        .environmentObject(Settings())
+        .modelContainer(for: [DictionaryModel.self, Tag.self, Word.self])
+    }
+}*/
 
-
-#Preview {
-    WordRowView(
-        wordModel: Word(word: ["English": "Apple", "German": "Apfel", "Russian": "Яблоко"], percentage: Int8.random(in: 1...100), tags: ["#tag"]),
-        dictionary: DictionaryModel(name: "Sample Dictionary", languages: ["EN", "RU", "DE"], wordCount: 100)
-    )
-    .environmentObject(Settings())
-    .modelContainer(for: [DictionaryModel.self, Tag.self, Word.self])
-}

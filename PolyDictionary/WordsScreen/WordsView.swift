@@ -44,6 +44,7 @@ struct WordsView: View {
                 List {
                     ForEach(filteredWords) { wordItem in
                         WordRowView(wordModel: wordItem, dictionary: dictionary)
+                            
                             .padding(.horizontal)
                     }
                 }
@@ -129,7 +130,7 @@ struct WordsView: View {
             let tags = components.filter { $0.hasPrefix("#") }.map { $0.dropFirst() }
 
             filteredWords = dictionary.words.filter { word in
-                let wordTags = word.tags.map { $0.lowercased() }
+                let wordTags = word.tags.map { $0.name.lowercased() }
                 return tags.allSatisfy { tag in
                     wordTags.contains(where: { $0.hasPrefix(tag) })
                 }
