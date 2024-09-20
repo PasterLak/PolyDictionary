@@ -1,12 +1,17 @@
 import SwiftUI
+import SwiftData
 
 struct TagSelectorView: View {
+    
+    @Environment(\.modelContext) private var modelContext
+    
+    @Query private var tags: [Tag]
     
     @Binding var selectedTags: [String]
     @EnvironmentObject var settings: Settings
     @State private var newTag: String = ""
     @State private var hideTagFromOtherDictionaries: Bool = false
-    @State private var availableTags: [Tag] = TagsGlobal.shared._tags.wrappedValue
+    //@State private var availableTags: [Tag] = TagsGlobal.shared._tags.wrappedValue
     @State private var selectedColor: Color = .yellow
     @State private var showMaxTagAlert: Bool = false
     @Environment(\.dismiss) var dismiss
@@ -52,14 +57,24 @@ struct TagSelectorView: View {
                             if selectedTags.count < maxTags {
                                 
                                 let newTagObj = Tag(name: validateTagName(newTag), color: TagColor.fromColor(selectedColor), isGlobal: hideTagFromOtherDictionaries)
-                                
-                                availableTags.append(newTagObj)
+                               
+                                //tags.append(newTagObj)
+                                //tags.
                                 selectedTags.append(validateTagName(newTag))
                                 
-                                if !hideTagFromOtherDictionaries
-                                {
-                                    TagsGlobal.shared.save(tag: newTagObj)
-                                }
+                               // if !hideTagFromOtherDictionaries
+                               // {
+                                   
+                                    modelContext.insert(newTagObj)
+                                   
+                                    do {
+                                        try modelContext.save()
+                                    } catch {
+                                        print("Error: \(error.localizedDescription)")
+                                    }
+
+                                    
+                                //}
                                 
                                 newTag = ""
                                 selectedColor = .yellow
@@ -74,7 +89,7 @@ struct TagSelectorView: View {
                 }
                 
                 Section(header: Text("Available Tags")) {
-                    ForEach(availableTags) { tag in
+                    ForEach(tags) { tag in
                         HStack {
                             Text("#" + validateTagName(tag.name))
                                 .foregroundColor(getColor(tag.color))
@@ -104,6 +119,10 @@ struct TagSelectorView: View {
                 Alert(title: Text("Maximum number of selected tags reached!"), message: Text("You can select up to \(maxTags) tags."), dismissButton: .default(Text("OK")))
             }
         }
+        .onAppear {
+            print("Теги: \(tags)")
+        }
+
     }
     
     
@@ -126,7 +145,7 @@ struct TagSelectorView: View {
     }
     
     private func isTagAlreadyExists(_ tag: String) -> Bool {
-        return availableTags.contains { $0.name.lowercased() == tag.lowercased() }
+        return tags.contains { $0.name.lowercased() == tag.lowercased() }
     }
     
     private func handleTagSelection(tag: Tag) {
@@ -154,6 +173,7 @@ struct TagSelectorView_Previews: PreviewProvider {
         NavigationView {
             TagSelectorView(selectedTags: $selectedTags)
                 .environmentObject(Settings())
+                .modelContainer(PolyDictionaryApp.shared.GlobalContainer)
         }
     }
 }

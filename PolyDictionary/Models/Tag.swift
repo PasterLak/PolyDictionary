@@ -5,14 +5,15 @@ import SwiftData
 final class Tag: Identifiable
 {
    // let id = UUID()
-    @Attribute(.unique) let name: String
+    @Attribute(.unique) var id: String = UUID().uuidString
+    var name: String
     private var colorEnum: TagColor
     public var isGlobal: Bool
     public var dateCreated: Date
     public var isPinned: Bool
     
     
-    public init(name: String, color: TagColor, isGlobal: Bool) {
+    public init(id: String = UUID().uuidString, name: String, color: TagColor, isGlobal: Bool) {
         self.name = name
         self.colorEnum = color
         self.isGlobal = isGlobal

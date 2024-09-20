@@ -3,30 +3,31 @@ import SwiftData
 
 @main
 struct PolyDictionaryApp: App {
+    
+    public static let shared = PolyDictionaryApp()
+    
     @StateObject var settings = Settings()
     @StateObject var languageManager = LanguageManager()
     
-    var modelContainer: ModelContainer {
-            do {
-                return try ModelContainer(for: Dictionary.self)
-            } catch {
-                fatalError("Failed to create ModelContainer: \(error)")
-            }
+    public var GlobalContainer: ModelContainer {
+        do {
+            return try ModelContainer(for: Dictionary.self, Tag.self, Word.self)
+        } catch {
+            fatalError("Failed to create ModelContainer: \(error)")
         }
+    }
    
     var body: some Scene {
         WindowGroup {
-            
 
             ContentView()
                 .environmentObject(settings)
                 .environment(\.locale, .init(identifier: languageManager.selectedLanguage)) 
                 .environmentObject(languageManager)
-                .modelContainer(for: [Dictionary.self])
-                .modelContainer(modelContainer)
+                .modelContainer(GlobalContainer)
+                //.modelContainer(modelContainer)
           
         }
     }
 }
-
 

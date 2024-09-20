@@ -104,7 +104,7 @@ struct StatsView_Previews: PreviewProvider {
         StatsView()
             .environmentObject(Settings())
             .environmentObject(LanguageManager())
-            .modelContainer(for: [Dictionary.self])
+            .modelContainer(PolyDictionaryApp.shared.GlobalContainer)
     }
 }
 

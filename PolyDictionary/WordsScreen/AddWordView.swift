@@ -99,7 +99,7 @@ struct AddWordView_Previews: PreviewProvider {
         )
         .environmentObject(Settings())
         .environmentObject(LanguageManager())
-        .modelContainer(for: [Dictionary.self, Word.self])
+        .modelContainer(PolyDictionaryApp.shared.GlobalContainer)
     }
 }
 

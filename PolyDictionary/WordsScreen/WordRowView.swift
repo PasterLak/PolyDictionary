@@ -9,6 +9,15 @@ struct WordRowView: View {
     @State private var showDeleteConfirmation = false
 
     var body: some View {
+        /*NavigationLink(value: wordModel) {
+            VStack(alignment: .leading) {
+                Text("wordModel.percentage")
+                    .font(.title3)
+                Text("\(wordModel.percentage)" + "ddw")
+                    .font(.caption)
+            }
+        }*/
+       
         HStack {
             VStack(alignment: .leading) {
                 Text(getFirstWordFromDictionary())
@@ -101,5 +110,5 @@ struct WordRowView: View {
         dictionary: Dictionary(name: "Sample Dictionary", languages: ["EN", "RU", "DE"], wordCount: 100)
     )
     .environmentObject(Settings())
-    .modelContainer(for: [Dictionary.self])
+    .modelContainer(PolyDictionaryApp.shared.GlobalContainer)
 }

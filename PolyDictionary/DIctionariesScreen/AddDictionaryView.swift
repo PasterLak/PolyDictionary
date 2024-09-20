@@ -93,6 +93,6 @@ struct AddDictionaryView_Previews: PreviewProvider {
         AddDictionaryView()
             .environmentObject(Settings())
             .environmentObject(LanguageManager())
-            .modelContainer(for: [Dictionary.self])
+            .modelContainer(PolyDictionaryApp.shared.GlobalContainer)
     }
 }

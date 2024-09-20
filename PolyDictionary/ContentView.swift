@@ -30,7 +30,7 @@ struct ContentView: View {
                     }
                 }
                 .preferredColorScheme(settings.isDarkMode ? .dark : .light)
-                .modelContainer(for: [Dictionary.self])
+                
                 .transition(.asymmetric(insertion: .move(edge: .trailing), removal: .slide))
                 .zIndex(0)
             }
@@ -40,12 +40,11 @@ struct ContentView: View {
 }
 
 
-
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
             .environmentObject(Settings())
             .environmentObject(LanguageManager())
-            .modelContainer(for: [Dictionary.self, Tag.self])
+            .modelContainer(PolyDictionaryApp.shared.GlobalContainer)
     }
 }

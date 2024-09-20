@@ -4,14 +4,14 @@ import SwiftUI
 
 @Model
 public class Word: Identifiable {
-    // Поля данных
+    
     public var id: UUID
     public var word: [String: String]
     public var percentage: Int8
     public var tags: [String]
     public var dateAdded: Date
 
-    // Инициализатор
+   
     public init(word: [String: String], percentage: Int8, tags: [String], dateAdded: Date = Date()) {
         self.id = UUID()
         self.word = word
@@ -20,12 +20,12 @@ public class Word: Identifiable {
         self.dateAdded = dateAdded
     }
     
-    // Получение тегов в строковом формате
+ 
     public func getTagsAsString() -> String {
         return tags.map { "#\($0)" }.joined(separator: ", ")
     }
     
-    // Получение переводов с флагами
+    
     public func getTranslationsWithFlags(for languages: [String]) -> String {
         let remainingLanguages = languages.dropFirst()
 
@@ -42,7 +42,7 @@ public class Word: Identifiable {
         return translationsWithFlags.joined(separator: ", ")
     }
 
-    // Метод для вывода данных модели в строку
+  
     public func toString() -> String {
         let wordTranslations = word.map { "\($0.key): \($0.value)" }.joined(separator: ", ")
         let tagsString = tags.joined(separator: ", ")

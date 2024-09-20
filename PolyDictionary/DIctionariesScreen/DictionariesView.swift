@@ -81,6 +81,8 @@ struct DictionariesView: View {
         .preferredColorScheme(settings.isDarkMode ? .dark : .light)
         .onAppear {
             
+           
+            
             if dictionaries.isEmpty {
                 //addDefaultDictionaries()
             }
