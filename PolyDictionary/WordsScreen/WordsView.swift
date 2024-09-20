@@ -45,9 +45,10 @@ struct WordsView: View {
                     ForEach(filteredWords) { wordItem in
                         WordRowView(wordModel: wordItem, dictionary: dictionary)
                             
-                            .padding(.horizontal)
+                            //.padding(.horizontal)
                     }
-                }
+                    
+                }//.listStyle(PlainListStyle())
                 .onAppear {
                     loadSortOption()
                     filteredWords = dictionary.words
