@@ -194,7 +194,7 @@ struct TagSelectorView_Previews: PreviewProvider {
         NavigationView {
             TagSelectorView(selectedTags: $selectedTags)
                 .environmentObject(Settings())
-                .modelContainer(PolyDictionaryApp.shared.GlobalContainer)
+                .modelContainer(for: [DictionaryModel.self, Tag.self, Word.self])
         }
     }
 }

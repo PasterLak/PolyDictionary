@@ -7,10 +7,10 @@ struct EditDictionaryView: View {
     @Environment(\.modelContext) private var modelContext
     @EnvironmentObject var settings: Settings
     
-    var dictionary: Dictionary
+    var dictionary: DictionaryModel
     @State private var name: String
 
-    init(dictionary: Dictionary) {
+    init(dictionary: DictionaryModel) {
         self.dictionary = dictionary
         self._name = State(initialValue: dictionary.name)
     }

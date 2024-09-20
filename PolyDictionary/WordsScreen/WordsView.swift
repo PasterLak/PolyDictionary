@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct WordsView: View {
-    @Bindable var dictionary: Dictionary
+    @Bindable var dictionary: DictionaryModel
 
     @State private var filteredWords: [Word] = []
     @State private var isPresented: Bool = false

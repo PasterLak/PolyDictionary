@@ -6,13 +6,13 @@ struct DictionariesView: View {
    
     @EnvironmentObject var settings: Settings
     
-    @Query private var dictionaries: [Dictionary]
+    @Query private var dictionaries: [DictionaryModel]
     
     @State private var showAddDictionarySheet = false
     @State private var showStatsSheet = false
-    @State private var dictionaryToDelete: Dictionary?
+    @State private var dictionaryToDelete: DictionaryModel?
     @State private var showDeleteConfirmation = false
-    @State private var selectedDictionaryForEditing: Dictionary?
+    @State private var selectedDictionaryForEditing: DictionaryModel?
     //@State private var showEditDictionarySheet = false
     
     var body: some View {
@@ -89,6 +89,7 @@ struct DictionariesView: View {
             if dictionaries.isEmpty {
                 //addDefaultDictionaries()
             }
+            print("Count dictionaries: \(dictionaries.count)")
         }
         
         
@@ -97,7 +98,7 @@ struct DictionariesView: View {
     
     private func addDefaultDictionaries() {
         let defaultDictionaries = [
-            Dictionary(name: "Words to learn", languages: ["EN", "DE", "RU"], wordCount: Int16(Int.random( in: 10...800))),
+            DictionaryModel(name: "Words to learn", languages: ["EN", "DE", "RU"], wordCount: Int16(Int.random( in: 10...800))),
             //DictionaryModel(name: "German-English Dictionary", languages: ["DE", "EN"], wordCount: Int16(Int.random( in: 10...500))),
            // DictionaryModel(name: "Latin languages", languages: ["ES", "IT", "PT"], wordCount: Int16(Int.random( in: 10...500)))
         ]

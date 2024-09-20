@@ -8,11 +8,11 @@ struct AddWordView: View {
     @State private var selectedTags: [String]
     @State private var isTagSelectorPresented = false
 
-    @Bindable var dictionary: Dictionary
+    @Bindable var dictionary: DictionaryModel
     var editingWord: Word?
     var onSave: (Word) -> Void
 
-    init(dictionary: Dictionary, editingWord: Word? = nil, onSave: @escaping (Word) -> Void) {
+    init(dictionary: DictionaryModel, editingWord: Word? = nil, onSave: @escaping (Word) -> Void) {
         self._dictionary = Bindable(dictionary)
         self.editingWord = editingWord
         self.onSave = onSave
@@ -105,12 +105,12 @@ struct AddWordView: View {
 struct AddWordView_Previews: PreviewProvider {
     static var previews: some View {
         AddWordView(
-            dictionary: Dictionary(name: "Sample Dictionary", languages: ["EN", "RU", "DE"], wordCount: 100),
+            dictionary: DictionaryModel(name: "Sample Dictionary", languages: ["EN", "RU", "DE"], wordCount: 100),
             onSave: { _ in }
         )
         .environmentObject(Settings())
         .environmentObject(LanguageManager())
-        .modelContainer(PolyDictionaryApp.shared.GlobalContainer)
+        .modelContainer(for: [DictionaryModel.self, Tag.self, Word.self])
     }
 }
 

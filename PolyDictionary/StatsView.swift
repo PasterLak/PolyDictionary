@@ -13,7 +13,7 @@ struct StatsView: View {
     @EnvironmentObject var settings: Settings
     @Environment(\.modelContext) private var modelContext
     
-    @Query private var dictionaries: [Dictionary]
+    @Query private var dictionaries: [DictionaryModel]
     
     var totalWords: Int {
             dictionaries.reduce(0) { $0 + Int($1.wordCount) }
@@ -104,7 +104,7 @@ struct StatsView_Previews: PreviewProvider {
         StatsView()
             .environmentObject(Settings())
             .environmentObject(LanguageManager())
-            .modelContainer(PolyDictionaryApp.shared.GlobalContainer)
+            .modelContainer(for: [DictionaryModel.self, Tag.self, Word.self])
     }
 }
 

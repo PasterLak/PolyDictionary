@@ -67,14 +67,20 @@ struct AddDictionaryView: View {
     
     private func addDictionary() {
         let selectedLanguageCodes = selectedLanguages.map { $0.code }
-        let newDictionary = Dictionary(
+        let newDictionary = DictionaryModel(
             name: name,
             languages: selectedLanguageCodes,
             wordCount: 0
         )
        
         modelContext.insert(newDictionary)
-        try? modelContext.save()
+        
+        do {
+            print("Dictionary added!")
+            try modelContext.save()
+        } catch {
+            print("Failed to save context: \(error)")
+        }
         
         dismiss()
     }
@@ -93,6 +99,6 @@ struct AddDictionaryView_Previews: PreviewProvider {
         AddDictionaryView()
             .environmentObject(Settings())
             .environmentObject(LanguageManager())
-            .modelContainer(PolyDictionaryApp.shared.GlobalContainer)
+            .modelContainer(for: [DictionaryModel.self, Tag.self, Word.self])
     }
 }

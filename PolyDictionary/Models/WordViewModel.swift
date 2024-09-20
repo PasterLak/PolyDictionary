@@ -18,7 +18,7 @@ class WordViewModel: ObservableObject {
     }
 
     // MARK: - Delete Method
-    func deleteDictionary(dictionary: Dictionary, context: ModelContext) {
+    func deleteDictionary(dictionary: DictionaryModel, context: ModelContext) {
         context.delete(dictionary)
         saveContext(context: context)
     }

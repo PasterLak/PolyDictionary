@@ -1,9 +1,20 @@
 import SwiftUI
+import SwiftData
 
 struct ContentView: View {
+    
+    @Environment(\.modelContext) private var modelContext
     @EnvironmentObject var settings: Settings
     
-    @State private var showOnboarding = true
+    @State private var showOnboarding = false
+    
+   
+    init()
+    {
+        //modelContext.container.deleteAllData()
+       // try? modelContext.save()
+    }
+ 
 
     var body: some View {
         ZStack {
@@ -45,6 +56,8 @@ struct ContentView_Previews: PreviewProvider {
         ContentView()
             .environmentObject(Settings())
             .environmentObject(LanguageManager())
-            .modelContainer(PolyDictionaryApp.shared.GlobalContainer)
+            .modelContainer(for: [DictionaryModel.self, Tag.self, Word.self])
     }
 }
+
+

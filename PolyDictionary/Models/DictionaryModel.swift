@@ -3,7 +3,7 @@ import Foundation
 import SwiftData
 
 @Model
-final class Dictionary: Identifiable, Equatable {
+final class DictionaryModel: Identifiable, Equatable {
     @Attribute(.unique) var id: String = UUID().uuidString
     var name: String
     var languages: [String]
@@ -19,7 +19,7 @@ final class Dictionary: Identifiable, Equatable {
         self.wordCount = Int16(words.count)
     }
 
-    static func == (lhs: Dictionary, rhs: Dictionary) -> Bool {
+    static func == (lhs: DictionaryModel, rhs: DictionaryModel) -> Bool {
         return lhs.id == rhs.id
     }
 }

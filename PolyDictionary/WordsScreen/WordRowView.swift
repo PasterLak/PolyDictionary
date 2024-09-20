@@ -2,7 +2,7 @@ import SwiftUI
 
 struct WordRowView: View {
     let wordModel: Word
-    @Bindable var dictionary: Dictionary
+    @Bindable var dictionary: DictionaryModel
 
     @Environment(\.modelContext) private var modelContext
     @EnvironmentObject var settings: Settings
@@ -101,8 +101,8 @@ struct WordRowView: View {
 #Preview {
     WordRowView(
         wordModel: Word(word: ["English": "Apple", "German": "Apfel", "Russian": "Яблоко"], percentage: Int8.random(in: 1...100), tags: ["#tag"]),
-        dictionary: Dictionary(name: "Sample Dictionary", languages: ["EN", "RU", "DE"], wordCount: 100)
+        dictionary: DictionaryModel(name: "Sample Dictionary", languages: ["EN", "RU", "DE"], wordCount: 100)
     )
     .environmentObject(Settings())
-    .modelContainer(PolyDictionaryApp.shared.GlobalContainer)
+    .modelContainer(for: [DictionaryModel.self, Tag.self, Word.self])
 }
