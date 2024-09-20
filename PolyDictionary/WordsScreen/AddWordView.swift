@@ -14,6 +14,12 @@ struct AddWordView: View {
     
     var onAddWord: (Word) -> Void
     
+    public func setEditData(word: Word)
+    {
+        selectedTags = word.tags
+        wordTranslations = word.word
+    }
+    
     var body: some View {
         NavigationView {
             Form {
@@ -48,7 +54,7 @@ struct AddWordView: View {
                     dismiss()
                 },
                 trailing: Button(action: {
-                    let newWord = Word(word: getTranslationsWithLanguageNames(wordTranslations: wordTranslations), percentage: 0, tags: selectedTags)
+                    let newWord = Word(word: getTranslationsWithLanguageNames(wordTranslations: wordTranslations), percentage: Int8.random(in: 0...100), tags: selectedTags)
                     onAddWord(newWord)
                     
                     dictionary.wordCount += 1

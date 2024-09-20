@@ -84,7 +84,7 @@ struct SettingsView: View {
         .navigationBarTitle("Settings", displayMode: .inline)
         .sheet(isPresented: $showingLanguageSelection) {
             LanguageSelectionView()
-                .environmentObject(languageManager)
+               // .environmentObject(languageManager)
         }
     }
 }

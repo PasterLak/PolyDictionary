@@ -99,10 +99,31 @@ struct TagSelectorView: View {
                             }
                         }
                         .contentShape(Rectangle())
+                        .swipeActions(edge: .trailing) {
+                            Button(role: .destructive) {
+                               
+                              
+                               modelContext.delete(tag)
+                               try? modelContext.save()
+                                
+                            } label: {
+                                Label("Delete", systemImage: "trash")
+                            }
+                        }
+                        .swipeActions(edge: .leading) {
+                            Button {
+                                // selectedDictionaryForEditing = dictionary
+                                // showEditDictionarySheet = true
+                            } label: {
+                                Label("Edit", systemImage: "pencil")
+                            }
+                            .tint(.blue)
+                        }
                         .onTapGesture {
                             handleTagSelection(tag: tag)
                         }
                     }
+                       
                 }
                 
             }

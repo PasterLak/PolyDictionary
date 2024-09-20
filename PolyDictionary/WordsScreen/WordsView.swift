@@ -51,14 +51,16 @@ struct WordsView: View {
             
             ZStack {
                 
-                ScrollView {
-                    LazyVStack {
+                
+                    List {
                         ForEach(filteredWords) { wordItem in
+                            
                             WordRowView(wordModel: wordItem, dictionary: dictionary)
                                 .padding(.horizontal)
                         }
                     }
-                }
+                
+               
                 .onAppear {
                     loadSortOption()
                     words = dictionary.words

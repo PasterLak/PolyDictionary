@@ -18,6 +18,8 @@ final class Dictionary: Identifiable, Equatable {
         self.languages = languages
         self.wordCount = wordCount
         words = []
+        self.wordCount = Int16(words.count)
+        
     }
     
     static func == (lhs: Dictionary, rhs: Dictionary) -> Bool {

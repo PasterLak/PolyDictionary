@@ -5,76 +5,79 @@ struct WordRowView: View {
     let wordModel: Word
     var dictionary: Dictionary
     
+    @Environment(\.modelContext) private var modelContext
+    
     @EnvironmentObject var settings: Settings
     @State private var showDeleteConfirmation = false
-
+    
     var body: some View {
-        /*NavigationLink(value: wordModel) {
-            VStack(alignment: .leading) {
-                Text("wordModel.percentage")
-                    .font(.title3)
-                Text("\(wordModel.percentage)" + "ddw")
-                    .font(.caption)
-            }
-        }*/
-       
-        HStack {
-            VStack(alignment: .leading) {
-                Text(getFirstWordFromDictionary())
-                    .font(.headline)
-                
-                Text(wordModel.getTranslationsWithFlags(for: dictionary.languages))
-                    .font(.subheadline)
-                    .foregroundColor(.gray)
-                
-                Text(wordModel.getTagsAsString())
-                    .font(.caption)
-                    .foregroundColor(settings.isDarkMode ? .yellow : Color(red: 0.95, green: 0.6, blue: 0.1))
-            }
-            Spacer()
+        
+        
+        Button(action: {
+          
+           // AddWordView(dictionary: dictionary, onAddWord: { _ in }).setEditData(word: wordModel)
+            //print("Word tapped: \(wordModel.word)")
+        }) {
             
-            ZStack {
-                Circle()
-                    .stroke(colorForPercentage(wordModel.percentage), lineWidth: wordModel.percentage < 100 ? 2 : 0)
-                    .frame(width: 50, height: 50)
-                if wordModel.percentage < 100 {
-                    Text("\(wordModel.percentage)%")
+            
+            HStack{
+                VStack(alignment: .leading) {
+                    Text(getFirstWordFromDictionary())
                         .font(.headline)
-                } else {
-                    Image(systemName: "checkmark.circle.fill")
-                        .resizable()
-                        .frame(width: 40, height: 40)
-                        .foregroundColor(.green)
+                    
+                    Text(wordModel.getTranslationsWithFlags(for: dictionary.languages))
+                        .font(.subheadline)
+                        .foregroundColor(.gray)
+                    
+                    Text(wordModel.getTagsAsString())
+                        .font(.caption)
+                        .foregroundColor(settings.isDarkMode ? .yellow : Color(red: 0.95, green: 0.6, blue: 0.1))
                 }
-            }
-        }
-        .padding(.vertical, 8)
-        .onTapGesture {
-            print("Word tapped: \(wordModel.word)")
-        }
-        .swipeActions(edge: .leading) {
-            Button(action: {
-                print("Edit \(wordModel.word)")
-            }) {
-                Label("Edit", systemImage: "pencil")
-            }
-            .tint(.blue)
+                Spacer()
+                
+                ZStack {
+                    Circle()
+                        .stroke(colorForPercentage(wordModel.percentage), lineWidth: wordModel.percentage < 100 ? 2 : 0)
+                        .frame(width: 50, height: 50)
+                    if wordModel.percentage < 100 {
+                        Text("\(wordModel.percentage)%")
+                            .font(.headline)
+                    } else {
+                        Image(systemName: "checkmark.circle.fill")
+                            .resizable()
+                            .frame(width: 40, height: 40)
+                            .foregroundColor(.green)
+                    }
+                }
+            } // HStack
+            .foregroundColor(settings.isDarkMode ? .white : .black)
+            .preferredColorScheme(settings.isDarkMode ? .dark : .light)
+            
         }
         .swipeActions(edge: .trailing) {
             Button(role: .destructive) {
-                showDeleteConfirmation = true
+                // dictionaryToDelete = dictionary
+                // showDeleteConfirmation = true
+                dictionary.wordCount -= 1
+                modelContext.delete(wordModel)
+                try? modelContext.save()
+                
             } label: {
                 Label("Delete", systemImage: "trash")
             }
         }
-        .confirmationDialog("Are you sure you want to delete this word?", isPresented: $showDeleteConfirmation, titleVisibility: .visible) {
-            Button("Delete", role: .destructive) {
-                deleteWord()
+        .swipeActions(edge: .leading) {
+            Button {
+                // selectedDictionaryForEditing = dictionary
+                // showEditDictionarySheet = true
+            } label: {
+                Label("Edit", systemImage: "pencil")
             }
-            Button("Cancel", role: .cancel) { }
+            .tint(.blue)
         }
-        .preferredColorScheme(settings.isDarkMode ? .dark : .light)
+
     }
+   
     
     func getFirstWordFromDictionary() -> String {
         let languageName = Language.getLanguageByCode(code: dictionary.languages[0]).name

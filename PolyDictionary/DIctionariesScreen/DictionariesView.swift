@@ -81,7 +81,10 @@ struct DictionariesView: View {
         .preferredColorScheme(settings.isDarkMode ? .dark : .light)
         .onAppear {
             
-           
+           for dic in dictionaries
+            {
+               dic.wordCount = Int16(dic.words.count)
+           }
             
             if dictionaries.isEmpty {
                 //addDefaultDictionaries()
